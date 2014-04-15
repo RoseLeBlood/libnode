@@ -29,11 +29,11 @@ namespace node
         Postorder
     }
 
-        
+    [Serializable]    
 	public abstract class Node<T, D> : Disposable
-		where T : class
+		//where T : class
 	{
-        public delegate void OnTravers(Node<T,D> node, Object o); 
+        public delegate void OnTravers(Object o, BinaryTreeNode<T>[] Root); 
 
 		protected string m_name;
 
@@ -87,7 +87,7 @@ namespace node
 			base.Dispose (disposing);
 			if (disposing)
 			{
-				m_data = null;
+				m_data = default(T);
 			}
 		}
         protected abstract D setParent(D node);

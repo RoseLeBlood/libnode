@@ -22,9 +22,8 @@ using System;
 
 namespace node
 {
-
+    [Serializable]
 	public class BinaryTreeNode<T> : Node<T, BinaryTreeNode<T>>
-		where T : class
 	{
 		internal bool m_now = false;
 
@@ -35,6 +34,21 @@ namespace node
                 return m_nodes[value];
             }
         }
+        public int Depth
+        {
+            get
+            {
+                int depth = 0;
+                BinaryTreeNode<T> node = this;
+                while(node.Parent != null)
+                {
+                    node = node.Parent;
+                    depth++;
+                }
+                return depth;
+            }
+        }
+
 		public override BinaryTreeNode<T> Root 
 		{
 			get
@@ -165,11 +179,11 @@ namespace node
 				}
 			}
 		}
-        public override void Travers(OnTravers travers, BinaryTreeNode<T> Root = null)
+        public override void Travers(OnTravers travers, BinaryTreeNode<T> Root)
         {
-            if (travers != null)
+            if (travers != null && Root != null)
             {
-                travers(this, Root == null ? this.Data : Root.Data);
+                travers(this.Data, Root.m_nodes);
             }
         }
         public override void Travers(TraversOrder order, BinaryTreeNode<T> Root)
@@ -202,10 +216,36 @@ namespace node
                     break;
             }
         }
+        public virtual bool IsGreaterThan(BinaryTreeNode b)
+        {
+            if(m_nodes [1] == null)
+                return false;
+
+            Object _a = ((Object)m_nodes [1].Data);
+            Object _b = ((Object)b.Data);
+
+            if (_a.IsNumber() && _b.IsNumber())
+            {
+
+                return (Convert.ToDecimal(_a)) > (Convert.ToDecimal(_b));
+
+            }
+            return false;
+        }
+
+        public static bool operator > (BinaryTreeNode<T> a, BinaryTreeNode<T> b)
+        {
+            return a.IsGreaterThan(b as BinaryTreeNode);
+        }
+        public static bool operator < (BinaryTreeNode<T> a, BinaryTreeNode<T> b)
+        {
+            return !a.IsGreaterThan(b as BinaryTreeNode);
+        }
 	}
 	public class BinaryTreeNode : BinaryTreeNode<Object>
 	{
 		public BinaryTreeNode (string name, Object data) : base(name, data) { }
+
 	}
 }
 

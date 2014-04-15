@@ -1,5 +1,6 @@
 ﻿using System;
 using node;
+using System.IO;
 
 
 namespace libnodetest
@@ -12,9 +13,11 @@ namespace libnodetest
 		    node.setNode (new Int32BinaryTreeNode ("value2", 34));
 		    node.setNode (new Int32BinaryTreeNode ("value3", 35));
 		    node.setNode (new Int32BinaryTreeNode ("value4", 166));
-		    node.setNode (new Int32BinaryTreeNode ("value5", 78));
-		    node.setNode (new Int32BinaryTreeNode ("value6", 89));
-
+		    node.setNode (new SingleBinaryTreeNode ("value5", 78.65f));
+		    node.setNode (new SByteBinaryTreeNode ("value6", 64));
+            node.setNode (new DoubleBinaryTreeNode ("value7", 0.37999999));
+            node.setNode (new DecimalBinaryTreeNode ("value8", 1276));
+            node.setNode (new StreamBinaryTreeNode("valueStream", new MemoryStream()));
 
 
 		    Console.WriteLine("Inorder traversal");
@@ -29,25 +32,8 @@ namespace libnodetest
 		    node.Travers(TraversOrder.Postorder, node.Root);
 		    Console.WriteLine("\n");
 
-            Console.WriteLine("User traversal");
-            node.Travers(MyTravers, node.Root);
-
 			Console.ReadLine ();
 		}
-        static void MyTravers(Node<IComparable, BinaryTreeNode<IComparable>> node, Object o)
-        {
-            if (node != null)
-            {
-                Console.Write("[{0}:{1}] Parent: {2}\n",node.Name, o, 
-                              ((Int32BinaryTreeNode)node).Parent != null ? 
-                              ((Int32BinaryTreeNode)node).Parent.Name : "no");
 
-                if(((Int32BinaryTreeNode)node).Left != null)
-                    ((Int32BinaryTreeNode)node).Left.Travers(MyTravers, null);
-
-                if(((Int32BinaryTreeNode)node).Right != null)
-                    ((Int32BinaryTreeNode)node).Right.Travers(MyTravers, null);
-            }
-        }
 	}
 }

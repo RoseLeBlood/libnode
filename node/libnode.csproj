@@ -38,7 +38,8 @@
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\helper.cs" />
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Disposable.cs" />
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\BinaryTreeNode.cs" />
-    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\ComparableBinaryTreeNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\StreamBinaryTreeNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\ValueBinaryTreeNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
