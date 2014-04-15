@@ -1,5 +1,0 @@
-/home/sophia/SyncDrive/annasophia.schroeck%40gmail.com/projects/node/libnode-test/bin/Debug/libnode-test.exe.mdb
-/home/sophia/SyncDrive/annasophia.schroeck%40gmail.com/projects/node/libnode-test/bin/Debug/libnode-test.exe
-/home/sophia/SyncDrive/annasophia.schroeck%40gmail.com/projects/node/libnode-test/obj/Debug/libnode-test.exe
-/home/sophia/SyncDrive/annasophia.schroeck%40gmail.com/projects/node/libnode-test/obj/Debug/libnode-test.exe.mdb
-/home/sophia/SyncDrive/annasophia.schroeck%40gmail.com/projects/node/libnode-test/bin/Debug/libnode.dll
