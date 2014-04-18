@@ -26,19 +26,20 @@ namespace node
     {
         Preorder,
         Inorder,
-        Postorder
+        Postorder,
+        ListOrder,
     }
 
     [Serializable]    
 	public abstract class Node<T, D> : Disposable
 		//where T : class
 	{
-        public delegate void OnTravers(Object o, BinaryTreeNode<T>[] Root); 
+        public delegate void funcTravers(Object o, D[] Root); 
 
 		protected string m_name;
 
 		protected T      m_data;
-        protected D[]     m_nodes;
+        internal D[]     m_nodes;
 
         public abstract D this [int value]
         { 
@@ -67,7 +68,7 @@ namespace node
             m_nodes = new D[nodes ];
 		}
 			
-		public virtual D Root { get; protected set; }
+		public abstract D Root { get; protected set; }
 
 		public abstract D getNode(string name);
 		public abstract D setNode(D node);
@@ -75,7 +76,7 @@ namespace node
 		public abstract D removeNode(string name);
 
         public abstract void Travers(TraversOrder order, D Root);
-        public abstract void Travers(OnTravers travers, D Root);
+        public abstract void Travers(funcTravers travers, D Root);
 
        
 		public override string ToString ()
@@ -90,7 +91,7 @@ namespace node
 				m_data = default(T);
 			}
 		}
-        protected abstract D setParent(D node);
+        //protected abstract D setParent(D node);
 	}
 }
 

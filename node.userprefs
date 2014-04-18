@@ -1,9 +1,8 @@
-﻿<Properties GitUserInfo="UsingGIT">
+﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="node/Tree/Binary/ComparableBinaryTreeNode.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="libnode-test/Program.cs">
     <Files>
-      <File FileName="libnode-test/Program.cs" Line="15" Column="62" />
-      <File FileName="node/Tree/Binary/ComparableBinaryTreeNode.cs" Line="53" Column="1" />
+      <File FileName="libnode-test/Program.cs" Line="23" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

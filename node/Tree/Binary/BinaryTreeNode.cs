@@ -49,15 +49,18 @@ namespace node
             }
         }
 
-		public override BinaryTreeNode<T> Root 
-		{
-			get
-			{
-				if (m_nodes[0] == null)
-					return this;
-				else
-					return m_nodes[0].Root;
-			}
+		public override BinaryTreeNode<T> Root
+        {
+            get
+            {
+                if (m_nodes [0] == null)
+                    return this;
+                else
+                    return m_nodes [0].Root;
+            }
+            protected set
+            {
+            }
 		}
         public BinaryTreeNode<T> Parent 
         {
@@ -102,7 +105,8 @@ namespace node
 			{
 				if (m_nodes[2] == null) 
 				{
-					m_nodes[2] = setParent(node);
+					node.Parent = this;
+                    m_nodes[2] = node;
                     Console.WriteLine("[{0}] Set Node Right: {1}", Name, m_nodes[2].Name);
 				}
 				else
@@ -112,7 +116,8 @@ namespace node
 			{
 				if (m_nodes[1] == null) 
 				{
-					m_nodes[1] = setParent(node);
+                    node.Parent = this;
+					m_nodes[1] = node;
                     Console.WriteLine("[{0}] Set Node Left: {1}", Name, m_nodes[1].Name);
 				}
 				else
@@ -122,11 +127,7 @@ namespace node
 			m_now = !m_now;
 			return this;
 		}
-        protected override BinaryTreeNode<T> setParent(BinaryTreeNode<T> node)
-        {
-            node.Parent = this;
-            return node;
-        }
+
 		public override BinaryTreeNode<T> removeNode(BinaryTreeNode<T> node)
 		{
 			BinaryTreeNode<T> _node = node as BinaryTreeNode<T>;
@@ -179,12 +180,10 @@ namespace node
 				}
 			}
 		}
-        public override void Travers(OnTravers travers, BinaryTreeNode<T> Root)
+
+        public override void Travers(funcTravers travers, BinaryTreeNode<T> Root)
         {
-            if (travers != null && Root != null)
-            {
-                travers(this.Data, Root.m_nodes);
-            }
+
         }
         public override void Travers(TraversOrder order, BinaryTreeNode<T> Root)
         {
@@ -245,6 +244,14 @@ namespace node
 	public class BinaryTreeNode : BinaryTreeNode<Object>
 	{
 		public BinaryTreeNode (string name, Object data) : base(name, data) { }
+
+        public override void Travers(funcTravers travers, BinaryTreeNode<object> Root)
+        {
+            if (travers != null && Root != null)
+            {
+                travers(this.Data, Root.m_nodes);
+            }
+        }
 
 	}
 }

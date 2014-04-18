@@ -40,6 +40,9 @@
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\BinaryTreeNode.cs" />
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\StreamBinaryTreeNode.cs" />
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\ValueBinaryTreeNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\ListNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\ValueListNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\StreamListNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -54,5 +57,7 @@
   <ItemGroup>
     <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\" />
     <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\" />
+    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\" />
+    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Group\" />
   </ItemGroup>
 </Project>
