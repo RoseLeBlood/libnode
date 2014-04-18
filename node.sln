@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libnode", "node\libnode.csproj", "{8A878FF9-751E-4D92-84DC-07E6533CDED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libnode-test", "libnode-test\libnode-test.csproj", "{C373CED7-9C0E-48FC-86F8-FBADD277B273}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libnode-test", "node\test\libnode-test.csproj", "{C373CED7-9C0E-48FC-86F8-FBADD277B273}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +21,6 @@ Global
 		{C373CED7-9C0E-48FC-86F8-FBADD277B273}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = libnode-test\libnode-test.csproj
+		StartupItem = node\test\libnode-test.csproj
 	EndGlobalSection
 EndGlobal
