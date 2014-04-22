@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
 
 namespace node
 {
@@ -28,23 +29,21 @@ namespace node
         Inorder,
         Postorder,
         ListOrder,
+        ReservListOrder
     }
 
     [Serializable]    
 	public abstract class Node<T, D> : Disposable
 		//where T : class
 	{
-        public delegate void funcTravers(Object o, D[] Root); 
+        public delegate void funcTravers(D node); 
 
 		protected string m_name;
 
 		protected T      m_data;
         internal D[]     m_nodes;
 
-        public abstract D this [int value]
-        { 
-            get;
-        }
+
 
 		public string Name 
 		{ 
@@ -56,6 +55,9 @@ namespace node
 			get { return m_data; }
 			set { m_data = value; }
 		}
+        internal Node()
+        {
+        }
 		protected Node (string name, int nodes) 
 		{
 			m_name = name;
@@ -72,12 +74,12 @@ namespace node
 
 		public abstract D getNode(string name);
 		public abstract D setNode(D node);
-		public abstract D removeNode(D node);
-		public abstract D removeNode(string name);
+		public abstract D removeNode(D node, ref bool removed);
+		public abstract D removeNode(string name, ref bool removed);
 
         public abstract void Travers(TraversOrder order, D Root);
-        public abstract void Travers(funcTravers travers, D Root);
-
+        public abstract void Travers(TraversOrder order, funcTravers travers, D Root);
+        public abstract List<T> ToList();
        
 		public override string ToString ()
 		{

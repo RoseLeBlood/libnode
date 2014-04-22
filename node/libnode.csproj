@@ -37,12 +37,14 @@
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Node.cs" />
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\helper.cs" />
     <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Disposable.cs" />
-    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\BinaryTreeNode.cs" />
-    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\StreamBinaryTreeNode.cs" />
-    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\ValueBinaryTreeNode.cs" />
-    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\ListNode.cs" />
-    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\ValueListNode.cs" />
-    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\StreamListNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\Binary\BinaryTreeNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\Binary\StreamBinaryTreeNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\Binary\ValueBinaryTreeNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\List\ListNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\List\ValueListNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\List\StreamListNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\Binary\ListBinaryTreeNode.cs" />
+    <Compile Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\StarNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -55,9 +57,8 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\" />
-    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Binary\" />
-    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\List\" />
-    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Tree\Group\" />
+    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\" />
+    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\Binary\" />
+    <Folder Include="..\..\..\..\annasophia.schroeck%40gmail.com\projects\node\node\Graph\List\" />
   </ItemGroup>
 </Project>
