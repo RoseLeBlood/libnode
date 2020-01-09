@@ -1,2 +1,4 @@
-# libnode
-BinaryTree and list system for csharp
+# libnode 
+Namespace: ASF.Node
+
+A generic node system for C# under LGPL for dotnet core. 
