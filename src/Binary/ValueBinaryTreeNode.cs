@@ -21,8 +21,9 @@
 using System;
 using System.Numerics;
 using System.Text;
+using ASF.Node;
 
-namespace System.Node.Binary {
+namespace ASF.Node.Binary {
     
     [Serializable]
 	public class ValueBinaryTreeNode<D> : BinaryTreeNode, IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D>

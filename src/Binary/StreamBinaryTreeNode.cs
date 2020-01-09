@@ -20,15 +20,16 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
+using ASF.Node;
 
-namespace SSystem.Node.Binary
+namespace ASF.Node.Binary
 {
     [Serializable]
     public class StreamBinaryTreeNode : BinaryTreeNode
     {
         public Stream Stream
         {
-            get { return ((Stream)Data); }
+            get { return (Stream)(m_data); }
         }
         public StreamBinaryTreeNode(string name, Stream data = null) 
             : base(name, data) { }

@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 
-namespace System.Node
+namespace ASF.Node
 {
 	internal static class helper
 	{

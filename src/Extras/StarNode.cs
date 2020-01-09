@@ -19,8 +19,11 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using ASF.Node;
+using ASF.Node.List;
 
-namespace System.Node.Star
+
+namespace ASF.Node.Extras
 {
     public class StarNode<T> : Node<T, StarNode<T>>
     {

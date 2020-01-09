@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace System.Node
+namespace ASF.Node
 {
     public enum TraversOrder
     {
@@ -95,5 +95,7 @@ namespace System.Node
 		}
         //protected abstract D setParent(D node);
 	}
+
+
 }
 

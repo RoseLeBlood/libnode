@@ -21,8 +21,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using ASF.Node;
 
-namespace System.Node.List
+namespace ASF.Node.List
 {
     public class GenericListEntry<T>
     {
@@ -258,9 +259,7 @@ namespace System.Node.List
         {
             return GetEnumerator();
         }
-        #endregion
-
-        #region IEnumerable implementation
+  
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             ListNode<T> root = Root;

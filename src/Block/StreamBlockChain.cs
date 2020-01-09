@@ -1,10 +1,10 @@
 //
-//  StreamListNode.cs
+//  StreamBlockChain.cs
 //
 //  Author:
 //       sophia <annasophia.schroeck@outlook.de>
 //
-//  Copyright (c) 2014 sophia
+//  Copyright (c) 2020 sophia
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
@@ -21,68 +21,59 @@
 using System;
 using System.IO;
 
-namespace System.Node.List
-{
-    [Serializable]
-    public class StreamListNode : ListNode
-    {
-        public Stream Stream
-        {
-            get { return ((Stream)Data); }
-        }
-        public StreamListNode(string name, Stream data = null) 
-            : base(name, data) { }
 
+namespace ASF.Node.Block {
 
-        public virtual bool CanRead
-        {
+    public class StreamBlockChain  : GenericBlockChain<Stream> {
+        public virtual bool CanRead {
             get { return Stream.CanRead; }
         }
 
-        public virtual bool CanSeek
-        {
+        public virtual bool CanSeek {
             get { return Stream.CanSeek; }
         }
 
-        public virtual bool CanWrite
-        {
+        public virtual bool CanWrite {
             get { return Stream.CanWrite; }
         }
 
-        public virtual long Length
-        {
+        public virtual long Length {
             get { return Stream.Length; }
         }
 
-        public virtual long Position
-        {
+        public virtual long Position {
             get { return Stream.Position; }
             set { Stream.Position = value; }
         }
-        public virtual void Flush()
-        {
+
+        public Stream Stream {
+            get { return ((Stream)Data.Data); }
+        }
+
+        public StreamBlockChain(Stream data, String hash )
+            : base(data, hash) { }
+
+        public StreamBlockChain(GenericBlockEntry<Stream> data)
+            : base(data) { }
+
+        public virtual void Flush() {
             Stream.Flush();
         }
 
-        public virtual int Read(byte[] buffer, int offset, int count)
-        {
+        public virtual int Read(byte[] buffer, int offset, int count) {
             return Stream.Read(buffer, offset, count);
         }
 
-        public virtual long Seek(long offset, SeekOrigin origin)
-        {
+        public virtual long Seek(long offset, SeekOrigin origin) {
             return Stream.Seek(offset, origin);
         }
 
-        public virtual void SetLength(long value)
-        {
+        public virtual void SetLength(long value) {
             Stream.SetLength(value);
         }
 
-        public virtual void Write(byte[] buffer, int offset, int count)
-        {
+        public virtual void Write(byte[] buffer, int offset, int count) {
             Stream.Write(buffer, offset, count);
         } 
     }
 }
-

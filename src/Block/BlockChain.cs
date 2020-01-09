@@ -1,10 +1,10 @@
-﻿//
-//  Disposable.cs
+//
+//  BlockChain.cs
 //
 //  Author:
 //       sophia <annasophia.schroeck@outlook.de>
 //
-//  Copyright (c) 2014 sophia
+//  Copyright (c) 2020 sophia
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
@@ -19,23 +19,17 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
+using System.Collections;
+using ASF.Node.List;
 
-namespace ASF.Node
-{
-	public class Disposable : IDisposable
-	{
-		~Disposable()
-		{
-			Dispose(false); 
-		}
+namespace ASF.Node.Block {
 
-		protected virtual void Dispose(Boolean disposing)
-		{
-		}
-		public void Dispose()
-		{
-			Dispose(true);
-		}
-	}
+    public class BlockChain  : GenericBlockChain<Object> {
+        public BlockChain(Object data, String hash )
+            : base( data, hash) { }
+
+        public BlockChain(GenericBlockEntry<Object> data)
+            : base( data) { }
+    }
 }
-
