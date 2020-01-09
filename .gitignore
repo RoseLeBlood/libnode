@@ -1,0 +1,7 @@
+node/test/bin/
+node/test/bin/*
+
+bin/
+bin/*
+obj/
+obj/*
