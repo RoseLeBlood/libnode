@@ -53,7 +53,7 @@ namespace ASF.Node.Block {
         public StreamBlockChain(Stream data, String hash )
             : base(data, hash) { }
 
-        public StreamBlockChain(GenericBlockEntry<Stream> data)
+        public StreamBlockChain(SHA512BlockEntry<Stream> data)
             : base(data) { }
 
         public virtual void Flush() {

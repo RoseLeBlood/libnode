@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Collections;
 using ASF.Node.List;
 
+
 namespace ASF.Node.Block {
 
     public class GenericBlockChain<T, ENTRY> 
@@ -108,6 +109,7 @@ namespace ASF.Node.Block {
             if (Next == null) {
                 node.Prev = this;
                 node.Data.PrevHash = this.Data.Hash;
+                node.Data.Index = this.Data.Index + 1;
 
                 node.Name = node.Data.update();
                 
@@ -252,11 +254,11 @@ namespace ASF.Node.Block {
         #endregion 
     }
 
-    public class GenericBlockChain<T> : GenericBlockChain<T, GenericBlockEntry<T>> { 
+    public class GenericBlockChain<T> : GenericBlockChain<T, SHA512BlockEntry<T>> { 
         public GenericBlockChain(T data, String hash )
-            : this(new GenericBlockEntry<T>(data, hash)) { }
+            : this(new SHA512BlockEntry<T>(data, hash)) { }
 
-        public GenericBlockChain(GenericBlockEntry<T> data)
+        public GenericBlockChain(SHA512BlockEntry<T> data)
             : base(data) { }
     } 
     

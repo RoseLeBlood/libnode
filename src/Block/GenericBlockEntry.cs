@@ -19,17 +19,17 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using System.Collections;
 using ASF.Node.List;
 
 namespace ASF.Node.Block {
-    public class GenericBlockEntry<T>
+    public abstract class GenericBlockEntry<T>
     {
-        private static ulong m_iIndex = 0;
-
         public T      Data { get; internal set; }
-        public long   TimeStamp { get; internal set; }
+        public double   TimeStamp { get; internal set; }
         public ulong    Index { get; internal set; }
 
         public String   Hash { get; internal set; }
@@ -38,21 +38,21 @@ namespace ASF.Node.Block {
         public GenericBlockEntry() {
 
         }
-        public GenericBlockEntry(T data, long timeStamp) {
+        public GenericBlockEntry(T data) {
             Data = data;
-            TimeStamp = timeStamp;
-            Index = (++m_iIndex);
+            TimeStamp = getTimeStamp();
+            Index = 0;
             PrevHash = "";
-            calc_hash();
+            update();
         }
         public GenericBlockEntry(T data, String hash) {
             Data = data;
-            TimeStamp = 0;
-            Index = (++m_iIndex);
+            TimeStamp = getTimeStamp();
+            Index = 0;
             Hash = hash;
             PrevHash = "";
         }
-        protected GenericBlockEntry(T data, long timeStamp, ulong index, String prevHash, String hash) {
+        protected GenericBlockEntry(T data, double timeStamp, ulong index, String prevHash, String hash) {
             Data = data;
             TimeStamp = timeStamp;
             Index = index;
@@ -74,7 +74,18 @@ namespace ASF.Node.Block {
 
         }
         public String update() {
-            calc_hash();
+            using (StreamWriter writer = new StreamWriter(new MemoryStream())) {
+                writer.WriteLine("{0}:{1}:{2}:{3}", Data, TimeStamp, PrevHash, Index);
+                writer.Flush();
+
+                var hashValue = calc_hash(writer.BaseStream);
+
+                StringBuilder st = new StringBuilder() ;
+                    foreach (byte value in hashValue) 
+                        st.Append(string.Format(":{0}", value ));
+                    Hash = st.ToString();
+                
+            }   
             return Hash;
         }
 
@@ -83,10 +94,15 @@ namespace ASF.Node.Block {
         }
 
         public static implicit operator GenericBlockEntry<T>(GenericBlockChain<T> node) {
-            return new GenericBlockEntry<T>(node);
+            return new SHA512BlockEntry<T>(node);
         }
-        protected virtual void calc_hash() {
-            //Hash = Data + TimeStamp + PrevHash + Index + Name;
+        protected abstract byte[] calc_hash(Stream stream) ;
+
+        protected virtual double getTimeStamp() {
+            TimeSpan ts = new TimeSpan(DateTime.Now.ToUniversalTime().Ticks - (new DateTime(1970, 1, 1)).Ticks);  // das Delta ermitteln
+   
+            return ts.TotalSeconds;
         }
+            
     }
 }

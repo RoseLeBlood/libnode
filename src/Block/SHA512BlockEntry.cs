@@ -1,5 +1,5 @@
 //
-//  BlockChain.cs
+//  SHA512BlockEntry.cs
 //
 //  Author:
 //       sophia <annasophia.schroeck@outlook.de>
@@ -23,13 +23,33 @@ using System.Collections.Generic;
 using System.Collections;
 using ASF.Node.List;
 
+using System.Security.Cryptography;
+using System.IO;
+
+
 namespace ASF.Node.Block {
+    public class SHA512BlockEntry<T> : GenericBlockEntry<T> {
 
-    public class BlockChain  : GenericBlockChain<Object> {
-        public BlockChain(Object data, String hash )
-            : base( data, hash) { }
+        
+        public SHA512BlockEntry(T data, String hash) 
+            : base(data, hash){
+        }
+        protected SHA512BlockEntry(T data, long timeStamp, ulong index, String prevHash, String hash) 
+            : base(data, timeStamp, index, prevHash, hash) {
+        }
 
-        public BlockChain(SHA512BlockEntry<Object> data)
-            : base( data) { }
+        public SHA512BlockEntry(GenericBlockChain<T> root) 
+            : base(root) { }
+
+        public SHA512BlockEntry(GenericBlockEntry<T> other) 
+            : base(other) { }
+
+        protected override byte[] calc_hash(Stream stream) {
+            byte[] ret ;
+            using(SHA512 sha = SHA512.Create()) {
+                ret = sha.ComputeHash(stream); 
+            }
+            return ret;
+        }
     }
 }
