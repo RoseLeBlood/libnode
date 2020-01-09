@@ -21,7 +21,7 @@
 using System;
 using System.Text;
 
-namespace node
+namespace System.Node.List
 {
 
     [Serializable]

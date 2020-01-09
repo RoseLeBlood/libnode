@@ -21,7 +21,7 @@
 using System;
 using System.IO;
 
-namespace node
+namespace SSystem.Node.Binary
 {
     [Serializable]
     public class StreamBinaryTreeNode : BinaryTreeNode

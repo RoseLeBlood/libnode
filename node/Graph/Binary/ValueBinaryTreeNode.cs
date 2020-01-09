@@ -22,8 +22,8 @@ using System;
 using System.Numerics;
 using System.Text;
 
-namespace node
-{
+namespace System.Node.Binary {
+    
     [Serializable]
 	public class ValueBinaryTreeNode<D> : BinaryTreeNode, IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D>
 		where D : IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D>

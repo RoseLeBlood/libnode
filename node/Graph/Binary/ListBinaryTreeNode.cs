@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 
-namespace node
+namespace System.Node.Binary
 {
     public class ListBinaryTreeNode<T> : BinaryTreeNode
     {

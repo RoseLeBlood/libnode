@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace node
+namespace System.Node
 {
     public enum TraversOrder
     {

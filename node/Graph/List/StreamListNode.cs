@@ -21,7 +21,7 @@
 using System;
 using System.IO;
 
-namespace node
+namespace System.Node.List
 {
     [Serializable]
     public class StreamListNode : ListNode

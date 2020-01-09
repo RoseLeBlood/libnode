@@ -22,7 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace node
+namespace System.Node.List
 {
     public class GenericListEntry<T>
     {
