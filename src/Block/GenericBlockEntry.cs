@@ -28,32 +28,35 @@ using ASF.Node.List;
 namespace ASF.Node.Block {
     public abstract class GenericBlockEntry<T>
     {
-        public T      Data { get; internal set; }
+        public T      Data { get; internal set; } 
         public double   TimeStamp { get; internal set; }
         public ulong    Index { get; internal set; }
 
         public String   Hash { get; internal set; }
         public String   PrevHash { get; internal set; }
 
+        public GenericBlockChain<Object> BlockChain { get; internal set; }
+
         public GenericBlockEntry() {
 
         }
         public GenericBlockEntry(T data) {
-            Data = data;
+            Data = (data != null) ? data : default(T);
             TimeStamp = getTimeStamp();
             Index = 0;
             PrevHash = "";
             update();
         }
         public GenericBlockEntry(T data, String hash) {
-            Data = data;
+            
+            Data = (data != null) ? data : default(T);
             TimeStamp = getTimeStamp();
             Index = 0;
             Hash = hash;
             PrevHash = "";
         }
         protected GenericBlockEntry(T data, double timeStamp, ulong index, String prevHash, String hash) {
-            Data = data;
+            Data= (data != null) ? data : default(T);
             TimeStamp = timeStamp;
             Index = index;
             Hash = hash;
@@ -73,7 +76,7 @@ namespace ASF.Node.Block {
                    other.Hash) {
 
         }
-        public String update() {
+        public virtual String update() {
             using (StreamWriter writer = new StreamWriter(new MemoryStream())) {
                 writer.WriteLine("{0}:{1}:{2}:{3}", Data, TimeStamp, PrevHash, Index);
                 writer.Flush();

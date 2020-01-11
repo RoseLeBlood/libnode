@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/run/media/ambersophia/USB-Stick/nodechain/Libs/libnode/ASF.Node.csproj",
+      "projectUniqueName": "/run/media/ambersophia/c3380f3b-996a-4411-9b0d-5b1b63165b70/nodechain/Libs/libnode/ASF.Node.csproj",
       "projectName": "ASF.Node",
-      "projectPath": "/run/media/ambersophia/USB-Stick/nodechain/Libs/libnode/ASF.Node.csproj",
+      "projectPath": "/run/media/ambersophia/c3380f3b-996a-4411-9b0d-5b1b63165b70/nodechain/Libs/libnode/ASF.Node.csproj",
       "packagesPath": "/home/ambersophia/.nuget/packages/",
-      "outputPath": "/run/media/ambersophia/USB-Stick/nodechain/Libs/libnode/obj/",
+      "outputPath": "/run/media/ambersophia/c3380f3b-996a-4411-9b0d-5b1b63165b70/nodechain/Libs/libnode/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/ambersophia/.nuget/NuGet/NuGet.Config"

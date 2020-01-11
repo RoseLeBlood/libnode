@@ -1,5 +1,5 @@
 //
-//  SHA512BlockEntry.cs
+//  SiblingBlockChain.cs
 //
 //  Author:
 //       sophia <annasophia.schroeck@outlook.de>
@@ -23,31 +23,16 @@ using System.Collections.Generic;
 using System.Collections;
 using ASF.Node.List;
 
-using System.Security.Cryptography;
-using System.IO;
-
 
 namespace ASF.Node.Block {
-    public class SHA256BlockEntry<T> : GenericBlockEntry<T> {
-        public SHA256BlockEntry(T data, String hash) 
-            : base(data, hash){
-        }
-        protected SHA256BlockEntry(T data, long timeStamp, ulong index, String prevHash, String hash) 
-            : base(data, timeStamp, index, prevHash, hash) {
-        }
 
-        public SHA256BlockEntry(GenericBlockChain<T> root) 
-            : base(root) { }
+    public class SiblingBlockChain<T> : GenericSiblingBlockChain<Object> { 
 
-        public SHA256BlockEntry(GenericBlockEntry<T> other) 
-            : base(other) { }
+        public SiblingBlockChain(Object data, String hash )
+            : this(new SHA512SiblingBlockEntry<Object>(data, hash)) { }
 
-        protected override byte[] calc_hash(Stream stream) {
-            byte[] ret ;
-            using(SHA256 sha = SHA256.Create()) {
-                ret = sha.ComputeHash(stream); 
-            }
-            return ret;
-        }
-    }
+        public SiblingBlockChain(SHA512SiblingBlockEntry<Object> data)
+            : base(data) { }
+    } 
+
 }
