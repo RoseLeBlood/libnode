@@ -68,6 +68,8 @@ namespace ASF.Node
 			m_name = name;
 			m_data = data;
             m_nodes = new D[nodes ];
+
+			Console.WriteLine("Create node: {0}", m_name);
 		}
 			
 		public abstract D Root { get; protected set; }

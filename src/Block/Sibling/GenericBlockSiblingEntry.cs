@@ -27,21 +27,29 @@ using ASF.Node.List;
 
 namespace ASF.Node.Block {
     public abstract class GenericBlockSiblingEntry<T> : GenericBlockEntry<T> {
+        protected GenericBlockSiblingEntry<T> m_pSibling;
+        protected bool m_bIsSibling;
 
-        public GenericBlockSiblingEntry<T> Sibling { get; internal set; } 
-        public bool IsSibling { get; internal set; }
+        public GenericBlockSiblingEntry<T> Sibling { 
+            get { return m_pSibling; } 
+            protected set { m_pSibling = value; } 
+        } 
+        public bool IsSibling { 
+            get { return m_bIsSibling; } 
+            protected set { m_bIsSibling = value; } 
+        }
 
         public GenericBlockSiblingEntry() {
-            Sibling = null;
+            m_pSibling = null; m_bIsSibling = false;
         }
         public GenericBlockSiblingEntry(T data) 
-            : base(data) { Sibling = null; }
+            : base(data) { m_pSibling = null; m_bIsSibling = false; }
 
         public GenericBlockSiblingEntry(T data, String hash)
-            : base(data, hash) { Sibling = null; }
+            : base(data, hash) { m_pSibling = null; m_bIsSibling = false; }
 
         protected GenericBlockSiblingEntry(T data, double timeStamp, ulong index, String prevHash, String hash) 
-            : base(data, timeStamp, index, prevHash, hash) { Sibling = null; }
+            : base(data, timeStamp, index, prevHash, hash) { Sibling = null; m_bIsSibling = false; }
 
         public virtual GenericBlockSiblingEntry<T> addSiblingNode(GenericBlockSiblingEntry<T> node) {
             if(Sibling != null) {
@@ -49,7 +57,7 @@ namespace ASF.Node.Block {
             } else {
                 node.PrevHash = this.Hash;
                 node.IsSibling = true;
-                Sibling = node;
+                m_pSibling = node;
             }
             return this;
         }

@@ -33,7 +33,7 @@ namespace ASF.Node.Block {
           ICollection<ENTRY> where ENTRY : GenericBlockEntry<T> {
         
         public override GenericBlockChain<T, ENTRY> Root  {
-            get  {  return (Prev == null) ? this : Prev.Root; }
+            get  {  return (Prev == null) ? this : m_nodes[0].Root; }
             protected set { Prev = value; }
         }
         public ENTRY this[int index]   {
@@ -84,11 +84,11 @@ namespace ASF.Node.Block {
         }
         public GenericBlockChain<T, ENTRY> Next {
             get { return m_nodes [1]; }
-            set {  }
+            protected set {  m_nodes [1] = value; }
         }
         public GenericBlockChain<T, ENTRY> Prev {
             get { return m_nodes [0]; }
-            set {  }
+            protected set { m_nodes [0] = value; }
         }
         public GenericBlockChain(ENTRY data)
             : base(data.Hash, data, 2) { }
@@ -99,9 +99,9 @@ namespace ASF.Node.Block {
                 return this;
 
             if(Next != null)
-                return Next.getNode(hash);
+                return m_nodes[1].getNode(hash);
             if(Prev !=null)
-                return Prev.getNode(hash);
+                return m_nodes[0].getNode(hash);
 
             return null;
         }
@@ -114,11 +114,11 @@ namespace ASF.Node.Block {
                 node.Name = node.Data.update();
                 
 
-                Next = node;
-                Console.WriteLine("[{0}] Set Node Next: {1}", Data, Next.Data);
+                m_nodes [1] = node;
+                Console.WriteLine("[{0}] Set Node Next: {1}",Name,  node.Name);
             } 
             else {
-                Next.setNode(node);
+                m_nodes[1].setNode(node);
             }
             return this;
         }
@@ -207,7 +207,7 @@ namespace ASF.Node.Block {
             if (disposing)
             {
                 if (Next != null)
-                    Next.Dispose(disposing);
+                    m_nodes[1].Dispose(disposing);
             }
         }
 
