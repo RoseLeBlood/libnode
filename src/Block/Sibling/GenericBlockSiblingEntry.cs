@@ -63,19 +63,21 @@ namespace ASF.Node.Block {
         }
 
         public override String update() {
-            using (StreamWriter writer = new StreamWriter(new MemoryStream())) {
-                writer.WriteLine("{0}:{1}:{2}:{3}:{4}", Data, TimeStamp, PrevHash, Index, IsSibling);
-                writer.Flush();
-
-                var hashValue = calc_hash(writer.BaseStream);
-
-                StringBuilder st = new StringBuilder() ;
-                    foreach (byte value in hashValue) 
-                        st.Append(string.Format(":{0}", value ));
-                    Hash = st.ToString();
-                
-            }   
+            Hash = calc_hash(String.Format("{0}{1}{2}{3}{4}", Data, TimeStamp, Index, PrevHash, m_pSibling));
             return Hash;
+        }
+        public override String ToString() {
+            StringBuilder builder = new StringBuilder();
+
+            builder.AppendLine("{");
+            builder.AppendFormat("\tData: {0},\n\tTimeStamp: {1}\n\tIndex: {2}", Data, TimeStamp, Index);
+            builder.AppendFormat("\n\tHash: {0},\n\tPrevHash: {1}\n\tIsSibling: {2}", Hash, PrevHash, m_bIsSibling);
+            if(m_bIsSibling) {
+                builder.AppendFormat("\n\tSibling: {0}", Sibling.ToString());
+            }
+            builder.AppendLine("\n}");
+
+            return builder.ToString();
         }
     }
 }

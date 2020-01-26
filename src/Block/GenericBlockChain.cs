@@ -20,9 +20,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Collections;
-using ASF.Node.List;
-
 
 namespace ASF.Node.Block {
 
@@ -111,14 +108,12 @@ namespace ASF.Node.Block {
                 node.Data.PrevHash = this.Data.Hash;
                 node.Data.Index = this.Data.Index + 1;
 
-                node.Name = node.Data.update();
+                node.Name = node.Data.Hash;
                 
-
                 m_nodes [1] = node;
-                Console.WriteLine("[{0}] Set Node Next: {1}",Name,  node.Name);
             } 
             else {
-                m_nodes[1].setNode(node);
+                return m_nodes[1].setNode(node);
             }
             return this;
         }
@@ -252,6 +247,17 @@ namespace ASF.Node.Block {
 
 
         #endregion 
+        public override String ToString() {
+            System.Text.StringBuilder st = new System.Text.StringBuilder();
+
+            st.AppendLine(Data.ToString());
+
+            if(Next != null) {
+                st.AppendLine(Next.ToString());
+            }
+
+            return st.ToString();
+        } 
     }
 
     public class GenericBlockChain<T> : GenericBlockChain<T, SHA512BlockEntry<T>> { 
@@ -260,6 +266,7 @@ namespace ASF.Node.Block {
 
         public GenericBlockChain(SHA512BlockEntry<T> data)
             : base(data) { }
-    } 
+    }
+    
     
 }

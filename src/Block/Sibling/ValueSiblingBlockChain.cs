@@ -148,13 +148,6 @@ namespace ASF.Node.Block {
             return ((IEquatable<D>)Value).Equals(other);
         }
         #endregion
-
-        public override string ToString() {
-            StringBuilder st = new StringBuilder(string.Format("[{0}] ", Value));
-            if(m_nodes[1] != null)
-                st.Append(string.Format("Next: {0} ", m_nodes[1]));
-            return st.ToString();
-        }
     }
 
     [Serializable]

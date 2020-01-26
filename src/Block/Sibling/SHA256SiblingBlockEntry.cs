@@ -35,12 +35,8 @@ namespace ASF.Node.Block {
         protected SHA256SiblingBlockEntry(T data, long timeStamp, ulong index, String prevHash, String hash) 
             : base(data, timeStamp, index, prevHash, hash) {
         }
-        protected override byte[] calc_hash(Stream stream) {
-            byte[] ret ;
-            using(SHA256 sha = SHA256.Create()) {
-                ret = sha.ComputeHash(stream); 
-            }
-            return ret;
+        protected override String calc_hash(string s) {
+            return ASF.Node.Block.BlockUtils.GenSHA256(s);
         }
     }
 }

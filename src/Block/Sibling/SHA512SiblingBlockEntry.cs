@@ -29,18 +29,17 @@ using System.IO;
 
 namespace ASF.Node.Block {
     public class SHA512SiblingBlockEntry<T> : GenericBlockSiblingEntry<T> {
+        public SHA512SiblingBlockEntry(T data) 
+            : base(data){
+        }
         public SHA512SiblingBlockEntry(T data, String hash) 
             : base(data, hash){
         }
         protected SHA512SiblingBlockEntry(T data, long timeStamp, ulong index, String prevHash, String hash) 
             : base(data, timeStamp, index, prevHash, hash) {
         }
-        protected override byte[] calc_hash(Stream stream) {
-            byte[] ret ;
-            using(SHA512 sha = SHA512.Create()) {
-                ret = sha.ComputeHash(stream); 
-            }
-            return ret;
+        protected override String calc_hash(string s) {
+            return ASF.Node.Block.BlockUtils.GenSHA512(s);
         }
     }
 }

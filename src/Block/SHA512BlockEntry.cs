@@ -19,10 +19,6 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Collections;
-using ASF.Node.List;
-
 using System.Security.Cryptography;
 using System.IO;
 
@@ -44,12 +40,8 @@ namespace ASF.Node.Block {
         public SHA512BlockEntry(GenericBlockEntry<T> other) 
             : base(other) { }
 
-        protected override byte[] calc_hash(Stream stream) {
-            byte[] ret ;
-            using(SHA512 sha = SHA512.Create()) {
-                ret = sha.ComputeHash(stream); 
-            }
-            return ret;
+        protected override String calc_hash(string s) {
+            return BlockUtils.GenSHA512(s);
         }
     }
 }

@@ -21,9 +21,6 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
-using System.Collections;
-using ASF.Node.List;
 
 namespace ASF.Node.Block {
     public abstract class GenericBlockEntry<T>
@@ -45,6 +42,7 @@ namespace ASF.Node.Block {
             TimeStamp = getTimeStamp();
             Index = 0;
             PrevHash = "";
+            Hash = "NO_HASH";
             update();
         }
         public GenericBlockEntry(T data, String hash) {
@@ -54,6 +52,7 @@ namespace ASF.Node.Block {
             Index = 0;
             Hash = hash;
             PrevHash = "";
+            
         }
         protected GenericBlockEntry(T data, double timeStamp, ulong index, String prevHash, String hash) {
             Data= (data != null) ? data : default(T);
@@ -77,18 +76,7 @@ namespace ASF.Node.Block {
 
         }
         public virtual String update() {
-            using (StreamWriter writer = new StreamWriter(new MemoryStream())) {
-                writer.WriteLine("{0}:{1}:{2}:{3}", Data, TimeStamp, PrevHash, Index);
-                writer.Flush();
-
-                var hashValue = calc_hash(writer.BaseStream);
-
-                StringBuilder st = new StringBuilder() ;
-                    foreach (byte value in hashValue) 
-                        st.Append(string.Format(":{0}", value ));
-                    Hash = st.ToString();
-                
-            }   
+            Hash = calc_hash(String.Format("{0}{1}{2}{3}", Data, TimeStamp, Index, PrevHash));
             return Hash;
         }
 
@@ -99,12 +87,22 @@ namespace ASF.Node.Block {
         public static implicit operator GenericBlockEntry<T>(GenericBlockChain<T> node) {
             return new SHA512BlockEntry<T>(node);
         }
-        protected abstract byte[] calc_hash(Stream stream) ;
+        protected abstract String calc_hash(string s) ;
 
         protected virtual double getTimeStamp() {
             TimeSpan ts = new TimeSpan(DateTime.Now.ToUniversalTime().Ticks - (new DateTime(1970, 1, 1)).Ticks);  // das Delta ermitteln
    
             return ts.TotalSeconds;
+        }
+        public override String ToString() {
+            StringBuilder builder = new StringBuilder();
+
+            builder.AppendLine("{");
+            builder.AppendFormat("\tData: {0},\n\tTimeStamp: {1}\n\tIndex: {2}", Data, TimeStamp, Index);
+            builder.AppendFormat("\n\tHash: {0},\n\tPrevHash: {1}\n", Hash, PrevHash);
+            builder.AppendLine("}");
+
+            return builder.ToString();
         }
             
     }
