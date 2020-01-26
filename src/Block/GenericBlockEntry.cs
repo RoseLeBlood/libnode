@@ -98,9 +98,9 @@ namespace ASF.Node.Block {
             StringBuilder builder = new StringBuilder();
 
             builder.AppendLine("{");
-            builder.AppendFormat("\tData: {0},\n\tTimeStamp: {1}\n\tIndex: {2}", Data, TimeStamp, Index);
-            builder.AppendFormat("\n\tHash: {0},\n\tPrevHash: {1}\n", Hash, PrevHash);
-            builder.AppendLine("}");
+            builder.AppendFormat("\tData: \"{0}\",\n\tTimeStamp: \"{1}\",\n\tIndex: \"{2}\",", Data, TimeStamp, Index);
+            builder.AppendFormat("\n\tHash: \"{0}\",\n\tPrevHash: \"{1}\",\n", Hash, PrevHash);
+            builder.AppendLine("},");
 
             return builder.ToString();
         }

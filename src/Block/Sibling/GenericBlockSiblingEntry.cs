@@ -70,12 +70,12 @@ namespace ASF.Node.Block {
             StringBuilder builder = new StringBuilder();
 
             builder.AppendLine("{");
-            builder.AppendFormat("\tData: {0},\n\tTimeStamp: {1}\n\tIndex: {2}", Data, TimeStamp, Index);
-            builder.AppendFormat("\n\tHash: {0},\n\tPrevHash: {1}\n\tIsSibling: {2}", Hash, PrevHash, m_bIsSibling);
+            builder.AppendFormat("\tData: \"{0}\",\n\tTimeStamp: \"{1}\",\n\tIndex: \"{2}\",", Data, TimeStamp, Index);
+            builder.AppendFormat("\n\tHash: \"{0}\",\n\tPrevHash: \"{1}\",\n\tIsSibling: \"{2}\",", Hash, PrevHash, m_bIsSibling);
             if(m_bIsSibling) {
                 builder.AppendFormat("\n\tSibling: {0}", Sibling.ToString());
             }
-            builder.AppendLine("\n}");
+            builder.AppendLine("\n},");
 
             return builder.ToString();
         }
