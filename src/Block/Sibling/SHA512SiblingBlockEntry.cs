@@ -19,27 +19,19 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Collections;
-using ASF.Node.List;
-
-using System.Security.Cryptography;
+using System.Collections.Generic;
 using System.IO;
-
+using System.Security.Cryptography;
+using ASF.Node.List;
 
 namespace ASF.Node.Block {
     public class SHA512SiblingBlockEntry<T> : GenericBlockSiblingEntry<T> {
-        public SHA512SiblingBlockEntry(T data) 
-            : base(data){
-        }
-        public SHA512SiblingBlockEntry(T data, String hash) 
-            : base(data, hash){
-        }
-        protected SHA512SiblingBlockEntry(T data, long timeStamp, ulong index, String prevHash, String hash) 
-            : base(data, timeStamp, index, prevHash, hash) {
-        }
-        protected override String calc_hash(string s) {
-            return ASF.Node.Block.BlockUtils.GenSHA512(s);
+        public SHA512SiblingBlockEntry (T data) : base (data) { }
+        public SHA512SiblingBlockEntry (T data, String hash) : base (data, hash) { }
+        protected SHA512SiblingBlockEntry (T data, long timeStamp, ulong index, String prevHash, String hash) : base (data, timeStamp, index, prevHash, hash) { }
+        protected override String calc_hash (string s) {
+            return ASF.Node.Block.BlockUtils.GenSHA512 (s);
         }
     }
 }

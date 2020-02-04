@@ -1,4 +1,4 @@
-﻿//
+//
 //  Node.cs
 //
 //  Author:
@@ -21,10 +21,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace ASF.Node
-{
-    public enum TraversOrder
-    {
+namespace ASF.Node {
+    public enum TraversOrder {
         Preorder,
         Inorder,
         Postorder,
@@ -32,70 +30,59 @@ namespace ASF.Node
         ReservListOrder
     }
 
-    [Serializable]    
-	public abstract class Node<T, D> : Disposable
-		//where T : class
-	{
-        public delegate void funcTravers(D node); 
+    [Serializable]
+    public abstract class Node<T, D> : Disposable
+    //where T : class
+    {
+        public delegate void funcTravers (D node);
 
-		protected string m_name;
+        protected string m_name;
 
-		protected T      m_data;
-        internal D[]     m_nodes;
+        protected T m_data;
+        protected D[] m_nodes;
 
-
-
-		public string Name 
-		{ 
-			get { return m_name; } 
-			set { m_name = value; }
-		}
-		public T Data
-		{
-			get { return m_data; }
-			set { m_data = value; }
-		}
-        internal Node()
-        {
+        public string Name {
+            get { return m_name; }
+            set { m_name = value; }
         }
-		protected Node (string name, int nodes) 
-		{
-			m_name = name;
-            m_nodes = new D[nodes ];
-		}
-		protected Node(string name, T data, int nodes)
-		{
-			m_name = name;
-			m_data = data;
-            m_nodes = new D[nodes ];
-		}
-			
-		public abstract D Root { get; protected set; }
+        public T Data {
+            get { return m_data; }
+            set { m_data = value; }
+        }
+        internal Node () { }
+        protected Node (string name, int nodes) {
+            m_name = name;
+            m_nodes = new D[nodes];
+        }
+        protected Node (string name, T data, int nodes) {
+            m_name = name;
+            m_data = data;
+            m_nodes = new D[nodes];
+        }
 
-		public abstract D getNode(string name);
-		public abstract D setNode(D node);
-		public abstract D removeNode(D node, ref bool removed);
-		public abstract D removeNode(string name, ref bool removed);
+        public abstract D Root { get; protected set; }
 
-        public abstract void Travers(TraversOrder order, D Root);
-        public abstract void Travers(TraversOrder order, funcTravers travers, D Root);
-        public abstract List<T> ToList();
-       
-		public override string ToString ()
-		{
-			return string.Format ("[Node: Name={0}, Data={1}, Root={2}]", Name, Data, Root);
-		}
-		protected override void Dispose (bool disposing)
-		{
-			base.Dispose (disposing);
-			if (disposing)
-			{
-				m_data = default(T);
-			}
-		}
+        public abstract D getNode (string name);
+        public abstract D setNode (D node);
+        public abstract D removeNode (D node, ref bool removed);
+        public abstract D removeNode (string name, ref bool removed);
+
+        public abstract void Travers (TraversOrder order, D Root);
+        public abstract void Travers (TraversOrder order, funcTravers travers, D Root);
+        public abstract List<T> ToList ();
+
+        public override string ToString () {
+            return string.Format ("[Node: Name={0}, Data={1}, Root={2}]", Name, Data, Root);
+        }
+        protected override void Dispose (bool disposing) {
+            base.Dispose (disposing);
+            if (disposing) {
+                m_data = default (T);
+            }
+        }
         //protected abstract D setParent(D node);
-	}
-
+        public virtual void OnSetNode (Node<T, D> node) { }
+        public virtual void OnRemoveNode (Node<T, D> node) { }
+    }
 
 }
-

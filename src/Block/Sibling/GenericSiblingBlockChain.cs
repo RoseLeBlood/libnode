@@ -19,19 +19,16 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using ASF.Node.List;
 
-
 namespace ASF.Node.Block {
-    
-    public class GenericSiblingBlockChain<T> : GenericBlockChain<T, SHA512SiblingBlockEntry<T>> { 
 
-        public GenericSiblingBlockChain(T data, String hash )
-            : this(new SHA512SiblingBlockEntry<T>(data, hash)) { }
+    public class GenericSiblingBlockChain<T> : GenericBlockChain<T, SHA512SiblingBlockEntry<T>> {
 
-        public GenericSiblingBlockChain(SHA512SiblingBlockEntry<T> data)
-            : base(data) { }
-    } 
+        public GenericSiblingBlockChain (T data, String hash) : this (new SHA512SiblingBlockEntry<T> (data, hash)) { }
+
+        public GenericSiblingBlockChain (SHA512SiblingBlockEntry<T> data) : base (data) { }
+    }
 }

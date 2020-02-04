@@ -22,173 +22,146 @@ using System;
 using System.Text;
 using ASF.Node;
 
-namespace ASF.Node.List
-{
+namespace ASF.Node.List {
 
     [Serializable]
     public class ValueListNode<D> : ListNode, IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D>
-        where D : IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D>
-    {
-        public ValueListNode (string name, Object data = null) : base(name, data) { }
+        where D : IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D> {
+            public ValueListNode (string name, Object data = null) : base (name, data) { }
 
-       
+            public override string ToString () {
+                StringBuilder st = new StringBuilder (string.Format ("[{0}:{1}] ", Name, Data));
+                if (m_nodes[1] != null)
+                    st.Append (string.Format ("Next: {0} ", m_nodes[1]));
+                if (m_nodes[0] != null)
+                    st.Append (string.Format ("Prev: {0} ", m_nodes[0]));
 
-        public override string ToString()
-        {
-            StringBuilder st = new StringBuilder(string.Format("[{0}:{1}] ", Name, Data));
-            if(m_nodes[1] != null)
-                st.Append(string.Format("Next: {0} ", m_nodes[1]));
-            if(m_nodes[0] != null)
-                st.Append(string.Format("Prev: {0} ", m_nodes[0]));
+                return st.ToString ();
+            }
+            #region IComparable implementation
+            public virtual int CompareTo (object obj) {
+                return ((IComparable) Data).CompareTo (obj);
+            }
+            #endregion       
 
-            return st.ToString();
-        }
-        #region IComparable implementation
-        public virtual int CompareTo(object obj)
-        {
-            return ((IComparable)Data).CompareTo(obj);
-        }
-        #endregion       
+            #region IConvertible implementation
+            public virtual TypeCode GetTypeCode () {
+                return ((IConvertible) Data).GetTypeCode ();
+            }
 
-        #region IConvertible implementation
-        public virtual TypeCode GetTypeCode()
-        {
-            return ((IConvertible)Data).GetTypeCode();
-        }
+            public virtual bool ToBoolean (IFormatProvider provider) {
+                return ((IConvertible) Data).ToBoolean (provider);
+            }
 
-        public virtual bool ToBoolean(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToBoolean(provider);
-        }
+            public virtual byte ToByte (IFormatProvider provider) {
+                return ((IConvertible) Data).ToByte (provider);
+            }
 
-        public virtual byte ToByte(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToByte(provider);
-        }
+            public virtual char ToChar (IFormatProvider provider) {
+                return ((IConvertible) Data).ToChar (provider);
+            }
 
-        public virtual char ToChar(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToChar(provider);
-        }
+            public virtual DateTime ToDateTime (IFormatProvider provider) {
+                return ((IConvertible) Data).ToDateTime (provider);
+            }
 
-        public virtual DateTime ToDateTime(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToDateTime(provider);
-        }
+            public virtual decimal ToDecimal (IFormatProvider provider) {
+                return ((IConvertible) Data).ToDecimal (provider);
+            }
 
-        public virtual decimal ToDecimal(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToDecimal(provider);
-        }
+            public virtual double ToDouble (IFormatProvider provider) {
+                return ((IConvertible) Data).ToDouble (provider);
+            }
 
-        public virtual double ToDouble(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToDouble(provider);
-        }
+            public virtual short ToInt16 (IFormatProvider provider) {
+                return ((IConvertible) Data).ToInt16 (provider);
+            }
 
-        public virtual short ToInt16(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToInt16(provider);
-        }
+            public virtual int ToInt32 (IFormatProvider provider) {
+                return ((IConvertible) Data).ToInt32 (provider);
+            }
 
-        public virtual int ToInt32(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToInt32(provider);
-        }
+            public virtual long ToInt64 (IFormatProvider provider) {
+                return ((IConvertible) Data).ToInt64 (provider);
+            }
 
-        public virtual long ToInt64(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToInt64(provider);
-        }
+            public virtual sbyte ToSByte (IFormatProvider provider) {
+                return ((IConvertible) Data).ToSByte (provider);
+            }
 
-        public virtual sbyte ToSByte(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToSByte(provider);
-        }
+            public virtual float ToSingle (IFormatProvider provider) {
+                return ((IConvertible) Data).ToSingle (provider);
+            }
 
-        public virtual float ToSingle(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToSingle(provider);
-        }
+            public virtual string ToString (IFormatProvider provider) {
+                return ((IConvertible) Data).ToString (provider);
+            }
 
-        public virtual string ToString(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToString(provider);
-        }
+            public virtual object ToType (Type conversionType, IFormatProvider provider) {
+                return ((IConvertible) Data).ToType (conversionType, provider);
+            }
 
-        public virtual object ToType(Type conversionType, IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToType(conversionType, provider);
-        }
+            public virtual ushort ToUInt16 (IFormatProvider provider) {
+                return ((IConvertible) Data).ToUInt16 (provider);
+            }
 
-        public virtual ushort ToUInt16(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToUInt16(provider);
-        }
+            public virtual uint ToUInt32 (IFormatProvider provider) {
+                return ((IConvertible) Data).ToUInt32 (provider);
+            }
 
-        public virtual uint ToUInt32(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToUInt32(provider);
+            public virtual ulong ToUInt64 (IFormatProvider provider) {
+                return ((IConvertible) Data).ToUInt64 (provider);
+            }
+            #endregion        
+
+            #region IFormattable implementation
+            public virtual string ToString (string format, IFormatProvider formatProvider) {
+                return ((IFormattable) Data).ToString (format, formatProvider);
+            }
+            #endregion  
+
+            #region IComparable implementation
+            public virtual int CompareTo (D other) {
+                return ((IComparable<D>) Data).CompareTo (other);
+            }
+            #endregion        
+            #region IEquatable implementation
+            public virtual bool Equals (D other) {
+                return ((IEquatable<D>) Data).Equals (other);
+            }
+            #endregion
         }
 
-        public virtual ulong ToUInt64(IFormatProvider provider)
-        {
-            return ((IConvertible)Data).ToUInt64(provider);
-        }
-        #endregion        
-
-        #region IFormattable implementation
-        public virtual string ToString(string format, IFormatProvider formatProvider)
-        {
-            return ((IFormattable)Data).ToString(format, formatProvider);
-        }
-        #endregion  
-
-        #region IComparable implementation
-        public virtual int CompareTo(D other)
-        {
-            return ((IComparable<D>)Data).CompareTo(other);
-        }
-        #endregion        
-        #region IEquatable implementation
-        public virtual bool Equals(D other)
-        {
-            return ((IEquatable<D>)Data).Equals(other);
-        }
-        #endregion
-    }
     [Serializable]
-    public class ByteListNode : ValueListNode<byte> 
-    { public ByteListNode (string name, byte value) : base(name, value) { } }
+    public class ByteListNode : ValueListNode<byte> { public ByteListNode (string name, byte value) : base (name, value) { } }
+
     [Serializable]
-    public class Int16ListNode : ValueListNode<short> 
-    { public Int16ListNode (string name, short value) : base(name, value) { } }
+    public class Int16ListNode : ValueListNode<short> { public Int16ListNode (string name, short value) : base (name, value) { } }
+
     [Serializable]
-    public class Int32ListNode : ValueListNode<int> 
-    { public Int32ListNode (string name, int value) : base(name, value) { } }
+    public class Int32ListNode : ValueListNode<int> { public Int32ListNode (string name, int value) : base (name, value) { } }
+
     [Serializable]
-    public class Int64ListNode : ValueListNode<long> 
-    { public Int64ListNode (string name, long value) : base(name, value) { } }
+    public class Int64ListNode : ValueListNode<long> { public Int64ListNode (string name, long value) : base (name, value) { } }
+
     [Serializable]
-    public class SByteListNode : ValueListNode<sbyte> 
-    { public SByteListNode (string name, sbyte value) : base(name, value) { } }
+    public class SByteListNode : ValueListNode<sbyte> { public SByteListNode (string name, sbyte value) : base (name, value) { } }
+
     [Serializable]
-    public class UInt16ListNode : ValueListNode<ushort> 
-    { public UInt16ListNode (string name, ushort value) : base(name, value) { } }
+    public class UInt16ListNode : ValueListNode<ushort> { public UInt16ListNode (string name, ushort value) : base (name, value) { } }
+
     [Serializable]
-    public class UInt32ListNode : ValueListNode<uint> 
-    { public UInt32ListNode (string name, uint value) : base(name, value) { } }
+    public class UInt32ListNode : ValueListNode<uint> { public UInt32ListNode (string name, uint value) : base (name, value) { } }
+
     [Serializable]
-    public class UInt64ListNode : ValueListNode<ulong> 
-    { public UInt64ListNode (string name, ulong value) : base(name, value) { } }
+    public class UInt64ListNode : ValueListNode<ulong> { public UInt64ListNode (string name, ulong value) : base (name, value) { } }
+
     [Serializable]
-    public class DecimalListNode : ValueListNode<decimal> 
-    { public DecimalListNode (string name, decimal value) : base(name, value) { } }
+    public class DecimalListNode : ValueListNode<decimal> { public DecimalListNode (string name, decimal value) : base (name, value) { } }
+
     [Serializable]
-    public class DoubleListNode : ValueListNode<double> 
-    { public DoubleListNode (string name, double value) : base(name, value) { } }
+    public class DoubleListNode : ValueListNode<double> { public DoubleListNode (string name, double value) : base (name, value) { } }
+
     [Serializable]
-    public class SingleListNode : ValueListNode<float> 
-    { public SingleListNode (string name, float value) : base(name, value) { } }
+    public class SingleListNode : ValueListNode<float> { public SingleListNode (string name, float value) : base (name, value) { } }
 }
-

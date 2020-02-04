@@ -20,70 +20,53 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
-using ASF.Node;
 
-namespace ASF.Node.List
-{
+namespace ASF.Node.List {
     [Serializable]
-    public class StreamListNode : ListNode
-    {
-        public Stream Stream
-        {
-            get { return ((Stream)Data); }
+    public class StreamListNode : ListNode {
+        public Stream Stream {
+            get { return ((Stream) Data); }
         }
-        public StreamListNode(string name, Stream data = null) 
-            : base(name, data) { }
+        public StreamListNode (string name, Stream data = null) : base (name, data) { }
 
-
-        public virtual bool CanRead
-        {
+        public virtual bool CanRead {
             get { return Stream.CanRead; }
         }
 
-        public virtual bool CanSeek
-        {
+        public virtual bool CanSeek {
             get { return Stream.CanSeek; }
         }
 
-        public virtual bool CanWrite
-        {
+        public virtual bool CanWrite {
             get { return Stream.CanWrite; }
         }
 
-        public virtual long Length
-        {
+        public virtual long Length {
             get { return Stream.Length; }
         }
 
-        public virtual long Position
-        {
+        public virtual long Position {
             get { return Stream.Position; }
             set { Stream.Position = value; }
         }
-        public virtual void Flush()
-        {
-            Stream.Flush();
+        public virtual void Flush () {
+            Stream.Flush ();
         }
 
-        public virtual int Read(byte[] buffer, int offset, int count)
-        {
-            return Stream.Read(buffer, offset, count);
+        public virtual int Read (byte[] buffer, int offset, int count) {
+            return Stream.Read (buffer, offset, count);
         }
 
-        public virtual long Seek(long offset, SeekOrigin origin)
-        {
-            return Stream.Seek(offset, origin);
+        public virtual long Seek (long offset, SeekOrigin origin) {
+            return Stream.Seek (offset, origin);
         }
 
-        public virtual void SetLength(long value)
-        {
-            Stream.SetLength(value);
+        public virtual void SetLength (long value) {
+            Stream.SetLength (value);
         }
 
-        public virtual void Write(byte[] buffer, int offset, int count)
-        {
-            Stream.Write(buffer, offset, count);
-        } 
+        public virtual void Write (byte[] buffer, int offset, int count) {
+            Stream.Write (buffer, offset, count);
+        }
     }
 }
-

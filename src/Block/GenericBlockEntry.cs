@@ -23,87 +23,88 @@ using System.IO;
 using System.Text;
 
 namespace ASF.Node.Block {
-    public abstract class GenericBlockEntry<T>
-    {
-        public T      Data { get; internal set; } 
-        public double   TimeStamp { get; internal set; }
-        public ulong    Index { get; internal set; }
+    public abstract class GenericBlockEntry<T> {
+        public T Data { get; internal set; }
+        public double TimeStamp { get; internal set; }
+        public ulong Index { get; internal set; }
 
-        public String   Hash { get; internal set; }
-        public String   PrevHash { get; internal set; }
+        public String Hash { get; internal set; }
+        public String PrevHash { get; internal set; }
 
-        public GenericBlockChain<Object> BlockChain { get; internal set; }
+        public bool Is { get { return IsValid (this); } }
 
-        public GenericBlockEntry() {
+        public GenericBlockEntry () {
 
         }
-        public GenericBlockEntry(T data) {
-            Data = (data != null) ? data : default(T);
-            TimeStamp = getTimeStamp();
+        public GenericBlockEntry (T data) {
+            Data = (data != null) ? data : default (T);
+            TimeStamp = getTimeStamp ();
             Index = 0;
             PrevHash = "";
             Hash = "NO_HASH";
-            update();
+            update ();
         }
-        public GenericBlockEntry(T data, String hash) {
-            
-            Data = (data != null) ? data : default(T);
-            TimeStamp = getTimeStamp();
+        public GenericBlockEntry (T data, String hash) {
+
+            Data = (data != null) ? data : default (T);
+            TimeStamp = getTimeStamp ();
             Index = 0;
             Hash = hash;
             PrevHash = "";
-            
+
         }
-        protected GenericBlockEntry(T data, double timeStamp, ulong index, String prevHash, String hash) {
-            Data= (data != null) ? data : default(T);
+        protected GenericBlockEntry (T data, double timeStamp, ulong index, String prevHash, String hash) {
+            Data = (data != null) ? data : default (T);
             TimeStamp = timeStamp;
             Index = index;
             Hash = hash;
             PrevHash = "";
         }
 
-        public GenericBlockEntry(GenericBlockChain<T> root) 
-            : this(root.Data) {
+        public GenericBlockEntry (GenericBlockChain<T> root) : this (root.Data) {
 
         }
 
-        public GenericBlockEntry(GenericBlockEntry<T> other) 
-            : this(other.Data, 
-                   other.TimeStamp, 
-                   other.Index, 
-                   other.PrevHash,
-                   other.Hash) {
+        public GenericBlockEntry (GenericBlockEntry<T> other) : this (other.Data,
+            other.TimeStamp,
+            other.Index,
+            other.PrevHash,
+            other.Hash) {
 
         }
-        public virtual String update() {
-            Hash = calc_hash(String.Format("{0}{1}{2}{3}", Data, TimeStamp, Index, PrevHash));
+        public virtual String update () {
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}", Data, TimeStamp, Index, PrevHash));
             return Hash;
         }
 
-        public virtual bool IsGreaterThan(GenericBlockEntry<T> other) {
+        public virtual bool IsGreaterThan (GenericBlockEntry<T> other) {
             return (this.Index > other.Index && this.TimeStamp > other.TimeStamp);
         }
 
-        public static implicit operator GenericBlockEntry<T>(GenericBlockChain<T> node) {
-            return new SHA512BlockEntry<T>(node);
+        public static implicit operator GenericBlockEntry<T> (GenericBlockChain<T> node) {
+            return new SHA512BlockEntry<T> (node);
         }
-        protected abstract String calc_hash(string s) ;
+        protected abstract String calc_hash (string s);
 
-        protected virtual double getTimeStamp() {
-            TimeSpan ts = new TimeSpan(DateTime.Now.ToUniversalTime().Ticks - (new DateTime(1970, 1, 1)).Ticks);  // das Delta ermitteln
-   
+        protected virtual double getTimeStamp () {
+            TimeSpan ts = new TimeSpan (DateTime.Now.ToUniversalTime ().Ticks - (new DateTime (1970, 1, 1)).Ticks); // das Delta ermitteln
+
             return ts.TotalSeconds;
         }
-        public override String ToString() {
-            StringBuilder builder = new StringBuilder();
+        public override String ToString () {
+            StringBuilder builder = new StringBuilder ();
 
-            builder.AppendLine("{");
-            builder.AppendFormat("\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
-            builder.AppendFormat("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n", Hash, PrevHash);
-            builder.AppendLine("},");
+            builder.Append ("{");
+            builder.AppendFormat ("\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
+            builder.AppendFormat ("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n", Hash, PrevHash);
+            builder.Append ("},");
 
-            return builder.ToString();
+            return builder.ToString ();
         }
-            
+        public bool IsValid (GenericBlockEntry<T> entry) {
+            String Hash = calc_hash (String.Format ("{0}{1}{2}{3}", entry.Data, entry.TimeStamp, entry.Index, entry.PrevHash));
+            return Hash == entry.Hash;
+        }
+
     }
 }

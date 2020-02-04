@@ -18,28 +18,22 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using ASF.Node;
+
 using ASF.Node.List;
 
-namespace ASF.Node.Binary
-{
-    public class ListBinaryTreeNode<T> : BinaryTreeNode
-    {
-        public ListBinaryTreeNode (string name, ListNode<T> data = null) : base(name, data) { }
+namespace ASF.Node.Binary {
+    public class ListBinaryTreeNode<T> : BinaryTreeNode {
+        public ListBinaryTreeNode (string name, ListNode<T> data = null) : base (name, data) { }
 
-        public override BinaryTreeNode<object> getNode(string name)
-        {
+        public override BinaryTreeNode<object> getNode (string name) {
             if (m_name == name)
                 return this;
 
             ListNode<T> list = Data as ListNode<T>;
-            list = list.Root.getNode(name);
+            list = list.Root.getNode (name);
 
-            if(list != null)
-                return new BinaryTreeNode<object>(list.Name, list.Data);
-
-
+            if (list != null)
+                return new BinaryTreeNode<object> (list.Name, list.Data);
 
             if (m_nodes[1] != null)
                 return m_nodes[1].getNode (name);
@@ -48,31 +42,26 @@ namespace ASF.Node.Binary
 
             return null;
         }
-        public override BinaryTreeNode<object> removeNode(string name, ref bool removed)
-        {
+        public override BinaryTreeNode<object> removeNode (string name, ref bool removed) {
             ListNode<T> list = Data as ListNode<T>;
-            list.removeNode(name, ref removed);
+            list.removeNode (name, ref removed);
 
-            return removed ? this : base.removeNode(name, ref removed);
+            return removed ? this : base.removeNode (name, ref removed);
         }
-        public override BinaryTreeNode<object> removeNode(BinaryTreeNode<object> node, ref bool removed)
-        {
+        public override BinaryTreeNode<object> removeNode (BinaryTreeNode<object> node, ref bool removed) {
             ListNode<T> list = Data as ListNode<T>;
-            list.removeNode(node.Name, ref removed);
+            list.removeNode (node.Name, ref removed);
 
-            return removed ? this : base.removeNode(node, ref removed);
+            return removed ? this : base.removeNode (node, ref removed);
         }
-        public virtual ListBinaryTreeNode<T> addToList(string name, T data)
-        {
-            return addToList(new ListNode<T>(name, data));
+        public virtual ListBinaryTreeNode<T> addToList (string name, T data) {
+            return addToList (new ListNode<T> (name, data));
         }
-        public virtual ListBinaryTreeNode<T> addToList(ListNode<T> data)
-        {
+        public virtual ListBinaryTreeNode<T> addToList (ListNode<T> data) {
             ListNode<T> list = Data as ListNode<T>;
-            list.setNode(data);
+            list.setNode (data);
             return this;
         }
 
     }
 }
-

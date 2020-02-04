@@ -19,29 +19,21 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Security.Cryptography;
 using System.IO;
-
+using System.Security.Cryptography;
 
 namespace ASF.Node.Block {
     public class SHA512BlockEntry<T> : GenericBlockEntry<T> {
 
-        
-        public SHA512BlockEntry(T data, String hash) 
-            : base(data, hash){
-        }
-        protected SHA512BlockEntry(T data, long timeStamp, ulong index, String prevHash, String hash) 
-            : base(data, timeStamp, index, prevHash, hash) {
-        }
+        public SHA512BlockEntry (T data, String hash) : base (data, hash) { }
+        protected SHA512BlockEntry (T data, long timeStamp, ulong index, String prevHash, String hash) : base (data, timeStamp, index, prevHash, hash) { }
 
-        public SHA512BlockEntry(GenericBlockChain<T> root) 
-            : base(root) { }
+        public SHA512BlockEntry (GenericBlockChain<T> root) : base (root) { }
 
-        public SHA512BlockEntry(GenericBlockEntry<T> other) 
-            : base(other) { }
+        public SHA512BlockEntry (GenericBlockEntry<T> other) : base (other) { }
 
-        protected override String calc_hash(string s) {
-            return BlockUtils.GenSHA512(s);
+        protected override String calc_hash (string s) {
+            return BlockUtils.GenSHA512 (s);
         }
     }
 }

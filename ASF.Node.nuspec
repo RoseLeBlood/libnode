@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>LibNode</id>
-    <version>1.2</version>
+    <id>ASF.Node</id>
+    <version>1.4</version>
     <authors>
       Amber-Sophia Schröck &lt;ambersophia.schroeck@outlook.de&gt;
     </authors>
@@ -10,9 +10,10 @@
     <projectUrl>https://github.com/RoseLeBlood/libnode</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      LibNode is a generic node,list and blockchain system for C# under LGPL for dotnet core.
+      A generic node system for C# under LGPL for dotnet core. With BinaryTree, a list with next and prev and
+      generic classes to build your own classic blockchain or a blockchain with sibling.
     </description>
     <copyright>Please see LICENSE for more details.</copyright>
-    <tags>node blockchain generic list graphen graph</tags>
+    <tags>node blockchain generic list graphen graph BinaryTree List nodelist math generic</tags>
   </metadata>
 </package>

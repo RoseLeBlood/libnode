@@ -1,4 +1,4 @@
-﻿//
+//
 //  Disposable.cs
 //
 //  Author:
@@ -20,22 +20,15 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 
-namespace ASF.Node
-{
-	public class Disposable : IDisposable
-	{
-		~Disposable()
-		{
-			Dispose(false); 
-		}
+namespace ASF.Node {
+    public class Disposable : IDisposable {
+        ~Disposable () {
+            Dispose (false);
+        }
 
-		protected virtual void Dispose(Boolean disposing)
-		{
-		}
-		public void Dispose()
-		{
-			Dispose(true);
-		}
-	}
+        protected virtual void Dispose (Boolean disposing) { }
+        public void Dispose () {
+            Dispose (true);
+        }
+    }
 }
-

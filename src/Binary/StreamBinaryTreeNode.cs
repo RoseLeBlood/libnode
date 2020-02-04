@@ -20,83 +20,63 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
-using ASF.Node;
 
-namespace ASF.Node.Binary
-{
+namespace ASF.Node.Binary {
     [Serializable]
-    public class StreamBinaryTreeNode : BinaryTreeNode
-    {
-        public Stream Stream
-        {
-            get { return (Stream)(m_data); }
+    public class StreamBinaryTreeNode : BinaryTreeNode {
+        public Stream Stream {
+            get { return (Stream) (m_data); }
         }
-        public StreamBinaryTreeNode(string name, Stream data = null) 
-            : base(name, data) { }
+        public StreamBinaryTreeNode (string name, Stream data = null) : base (name, data) { }
 
-        public override bool IsGreaterThan(BinaryTreeNode b)
-        {
-            if (helper.IsNumber(b.Data))
-            {
-                return Convert.ToInt64(b.Data) < ((Stream)(this.Data)).Length;
-            }
-            else if (b.Data is Stream)
-            {
-                return ((Stream)b.Data).Length < ((Stream)(this.Data)).Length;
+        public override bool IsGreaterThan (BinaryTreeNode b) {
+            if (helper.IsNumber (b.Data)) {
+                return Convert.ToInt64 (b.Data) < ((Stream) (this.Data)).Length;
+            } else if (b.Data is Stream) {
+                return ((Stream) b.Data).Length < ((Stream) (this.Data)).Length;
             }
 
             return false;
         }
 
-        public virtual bool CanRead
-        {
+        public virtual bool CanRead {
             get { return Stream.CanRead; }
         }
 
-        public virtual bool CanSeek
-        {
+        public virtual bool CanSeek {
             get { return Stream.CanSeek; }
         }
 
-        public virtual bool CanWrite
-        {
+        public virtual bool CanWrite {
             get { return Stream.CanWrite; }
         }
 
-        public virtual long Length
-        {
+        public virtual long Length {
             get { return Stream.Length; }
         }
 
-        public virtual long Position
-        {
+        public virtual long Position {
             get { return Stream.Position; }
             set { Stream.Position = value; }
         }
-        public virtual void Flush()
-        {
-            Stream.Flush();
+        public virtual void Flush () {
+            Stream.Flush ();
         }
 
-        public virtual int Read(byte[] buffer, int offset, int count)
-        {
-            return Stream.Read(buffer, offset, count);
+        public virtual int Read (byte[] buffer, int offset, int count) {
+            return Stream.Read (buffer, offset, count);
         }
 
-        public virtual long Seek(long offset, SeekOrigin origin)
-        {
-            return Stream.Seek(offset, origin);
+        public virtual long Seek (long offset, SeekOrigin origin) {
+            return Stream.Seek (offset, origin);
         }
 
-        public virtual void SetLength(long value)
-        {
-            Stream.SetLength(value);
+        public virtual void SetLength (long value) {
+            Stream.SetLength (value);
         }
 
-        public virtual void Write(byte[] buffer, int offset, int count)
-        {
-            Stream.Write(buffer, offset, count);
-        }        
+        public virtual void Write (byte[] buffer, int offset, int count) {
+            Stream.Write (buffer, offset, count);
+        }
     }
 }
-

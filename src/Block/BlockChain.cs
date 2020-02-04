@@ -22,11 +22,9 @@ using System;
 
 namespace ASF.Node.Block {
 
-    public class BlockChain  : GenericBlockChain<Object> {
-        public BlockChain(Object data, String hash )
-            : base( data, hash) { }
+    public class BlockChain : GenericBlockChain<Object> {
+        public BlockChain (Object data, String hash) : base (data, hash) { }
 
-        public BlockChain(SHA512BlockEntry<Object> data)
-            : base( data) { }
+        public BlockChain (SHA512BlockEntry<Object> data) : base (data) { }
     }
 }

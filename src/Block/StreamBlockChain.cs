@@ -21,10 +21,9 @@
 using System;
 using System.IO;
 
-
 namespace ASF.Node.Block {
 
-    public class StreamBlockChain  : GenericBlockChain<Stream> {
+    public class StreamBlockChain : GenericBlockChain<Stream> {
         public virtual bool CanRead {
             get { return Stream.CanRead; }
         }
@@ -47,33 +46,31 @@ namespace ASF.Node.Block {
         }
 
         public Stream Stream {
-            get { return ((Stream)Data.Data); }
+            get { return ((Stream) Data.Data); }
         }
 
-        public StreamBlockChain(Stream data, String hash )
-            : base(data, hash) { }
+        public StreamBlockChain (Stream data, String hash) : base (data, hash) { }
 
-        public StreamBlockChain(SHA512BlockEntry<Stream> data)
-            : base(data) { }
+        public StreamBlockChain (SHA512BlockEntry<Stream> data) : base (data) { }
 
-        public virtual void Flush() {
-            Stream.Flush();
+        public virtual void Flush () {
+            Stream.Flush ();
         }
 
-        public virtual int Read(byte[] buffer, int offset, int count) {
-            return Stream.Read(buffer, offset, count);
+        public virtual int Read (byte[] buffer, int offset, int count) {
+            return Stream.Read (buffer, offset, count);
         }
 
-        public virtual long Seek(long offset, SeekOrigin origin) {
-            return Stream.Seek(offset, origin);
+        public virtual long Seek (long offset, SeekOrigin origin) {
+            return Stream.Seek (offset, origin);
         }
 
-        public virtual void SetLength(long value) {
-            Stream.SetLength(value);
+        public virtual void SetLength (long value) {
+            Stream.SetLength (value);
         }
 
-        public virtual void Write(byte[] buffer, int offset, int count) {
-            Stream.Write(buffer, offset, count);
-        } 
+        public virtual void Write (byte[] buffer, int offset, int count) {
+            Stream.Write (buffer, offset, count);
+        }
     }
 }

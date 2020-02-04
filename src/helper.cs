@@ -1,4 +1,4 @@
-﻿//
+//
 //  helper.cs
 //
 //  Author:
@@ -20,14 +20,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 
-namespace ASF.Node
-{
-	internal static class helper
-	{
-		public static bool IsNumber(this Object o)
-        {   
-            switch (Type.GetTypeCode(o.GetType()))
-            {
+namespace ASF.Node {
+    internal static class helper {
+        public static bool IsNumber (this Object o) {
+            switch (Type.GetTypeCode (o.GetType ())) {
                 case TypeCode.Byte:
                 case TypeCode.SByte:
                 case TypeCode.UInt16:
@@ -44,6 +40,5 @@ namespace ASF.Node
                     return false;
             }
         }
-	}
+    }
 }
-
