@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>LibNode</id>
+    <version>1.2</version>
+    <authors>
+      Amber-Sophia Schröck &lt;ambersophia.schroeck@outlook.de&gt;
+    </authors>
+    <licenseUrl>http://www.gnu.org/licenses/</licenseUrl>
+    <projectUrl>https://github.com/RoseLeBlood/libnode</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      LibNode is a generic node,list and blockchain system for C# under LGPL for dotnet core.
+    </description>
+    <copyright>Please see LICENSE for more details.</copyright>
+    <tags>node blockchain generic list graphen graph</tags>
+  </metadata>
+</package>
