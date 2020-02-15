@@ -26,10 +26,16 @@ using System.Security.Cryptography;
 using ASF.Node.List;
 
 namespace ASF.Node.Block {
+    [Serializable]
     public class SHA512SiblingBlockEntry<T> : GenericBlockSiblingEntry<T> {
-        public SHA512SiblingBlockEntry (T data) : base (data) { }
-        public SHA512SiblingBlockEntry (T data, String hash) : base (data, hash) { }
-        protected SHA512SiblingBlockEntry (T data, long timeStamp, ulong index, String prevHash, String hash) : base (data, timeStamp, index, prevHash, hash) { }
+        public SHA512SiblingBlockEntry (T data, Guid creater) : base (data, creater) { }
+        public SHA512SiblingBlockEntry (T data, String hash, Guid creater) 
+            : base (data, hash, creater) { }
+            
+        public SHA512SiblingBlockEntry (T data, long timeStamp, ulong index, 
+            String prevHash, String hash, Guid creater) 
+            : base (data, timeStamp, index, prevHash, hash, creater) { }
+
         protected override String calc_hash (string s) {
             return ASF.Node.Block.BlockUtils.GenSHA512 (s);
         }

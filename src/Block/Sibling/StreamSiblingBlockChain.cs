@@ -22,7 +22,7 @@ using System;
 using System.IO;
 
 namespace ASF.Node.Block {
-
+    [Serializable]
     public class StreamSiblingBlockChain : GenericSiblingBlockChain<Stream> {
         public virtual bool CanRead {
             get { return Stream.CanRead; }
@@ -49,7 +49,7 @@ namespace ASF.Node.Block {
             get { return ((Stream) Data.Data); }
         }
 
-        public StreamSiblingBlockChain (Stream data, String hash) : base (data, hash) { }
+        public StreamSiblingBlockChain (Stream data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
 
         public StreamSiblingBlockChain (SHA512SiblingBlockEntry<Stream> data) : base (data) { }
 

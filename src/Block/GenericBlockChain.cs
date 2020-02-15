@@ -19,10 +19,15 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.IO;
+
+//using System.Text.Json;
+//using System.Text.Json.Serialization;
+
 using System.Collections.Generic;
 
 namespace ASF.Node.Block {
-
+    [Serializable]
     public class GenericBlockChain<T, ENTRY>
         : Node<ENTRY, GenericBlockChain<T, ENTRY>>,
         IEnumerable<ENTRY>,
@@ -79,6 +84,7 @@ namespace ASF.Node.Block {
                     return false;
                 }
             }
+            
             public GenericBlockChain<T, ENTRY> Next {
                 get { return m_nodes[1]; }
                 protected set { m_nodes[1] = value; }
@@ -127,19 +133,19 @@ namespace ASF.Node.Block {
             public override void Travers (TraversOrder order, GenericBlockChain<T, ENTRY> root) {
                 if (Root != null && order == TraversOrder.ListOrder) {
                     Console.Write (Root.Data + " ");
-                    Travers (order, Root.Next);
+                    if(root.Next != null) Travers (order, Root.Next);
                 } else if (root != null && order == TraversOrder.ReservListOrder) {
                     Console.Write (Root.Data + " ");
-                    Travers (order, root.Prev);
+                    if(root.Prev != null) Travers (order, root.Prev);
                 }
             }
             public override void Travers (TraversOrder order, funcTravers travers, GenericBlockChain<T, ENTRY> root) {
                 if (root != null && order == TraversOrder.ListOrder) {
-                    travers (root.Next);
-                    Travers (order, travers, root.Next);
+                    travers (root);
+                    if(root.Next != null) Travers (order, travers, root.Next);
                 } else if (root != null && order == TraversOrder.ReservListOrder) {
-                    travers (root.Next);
-                    Travers (order, travers, root.Prev);
+                    travers (root);
+                    if(root.Prev != null) Travers (order, travers, root.Prev);
                 }
             }
 
@@ -248,10 +254,21 @@ namespace ASF.Node.Block {
 
                 return st.ToString ();
             }
-        }
 
+           /* public String toJson() {
+                var option = new JsonSerializerOptions {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    WriteIndented = true
+                };
+                var modeljson = JsonSerializer.Serialize(this, options);
+
+                return "";
+            }*/
+        }
+    [Serializable]
     public class GenericBlockChain<T> : GenericBlockChain<T, SHA512BlockEntry<T>> {
-        public GenericBlockChain (T data, String hash) : this (new SHA512BlockEntry<T> (data, hash)) { }
+        public GenericBlockChain (T data, String hash, Guid OwnerGuid) 
+            : this (new SHA512BlockEntry<T> (data, hash, OwnerGuid)) { }
 
         public GenericBlockChain (SHA512BlockEntry<T> data) : base (data) { }
     }

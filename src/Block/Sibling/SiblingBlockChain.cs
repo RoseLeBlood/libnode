@@ -24,10 +24,11 @@ using System.Collections.Generic;
 using ASF.Node.List;
 
 namespace ASF.Node.Block {
-
+    [Serializable]
     public class SiblingBlockChain<T> : GenericSiblingBlockChain<Object> {
 
-        public SiblingBlockChain (Object data, String hash) : this (new SHA512SiblingBlockEntry<Object> (data, hash)) { }
+        public SiblingBlockChain (Object data, String hash, Guid OwnerGuid) 
+            : this (new SHA512SiblingBlockEntry<Object> (data, hash, OwnerGuid)) { }
 
         public SiblingBlockChain (SHA512SiblingBlockEntry<Object> data) : base (data) { }
     }

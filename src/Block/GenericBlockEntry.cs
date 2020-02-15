@@ -23,6 +23,7 @@ using System.IO;
 using System.Text;
 
 namespace ASF.Node.Block {
+    [Serializable]
     public abstract class GenericBlockEntry<T> {
         public T Data { get; internal set; }
         public double TimeStamp { get; internal set; }
@@ -31,34 +32,44 @@ namespace ASF.Node.Block {
         public String Hash { get; internal set; }
         public String PrevHash { get; internal set; }
 
-        public bool Is { get { return IsValid (this); } }
+        public Guid CreateUuid { get; internal set; }
+        public Guid OwnerUuid { get;  set; }
+
+        public bool IsValid { get { return isValid (this); } }
 
         public GenericBlockEntry () {
 
         }
-        public GenericBlockEntry (T data) {
+        public GenericBlockEntry (T data, Guid creater) {
             Data = (data != null) ? data : default (T);
             TimeStamp = getTimeStamp ();
             Index = 0;
             PrevHash = "";
             Hash = "NO_HASH";
+            CreateUuid = creater;
+            OwnerUuid = creater;
             update ();
         }
-        public GenericBlockEntry (T data, String hash) {
+        public GenericBlockEntry (T data, String hash, Guid creater) {
 
             Data = (data != null) ? data : default (T);
             TimeStamp = getTimeStamp ();
             Index = 0;
             Hash = hash;
             PrevHash = "";
+            CreateUuid = creater;
+            OwnerUuid = creater;
 
         }
-        protected GenericBlockEntry (T data, double timeStamp, ulong index, String prevHash, String hash) {
+        protected GenericBlockEntry (T data, double timeStamp, ulong index, String prevHash, String hash,
+                                    Guid creater ) {
             Data = (data != null) ? data : default (T);
             TimeStamp = timeStamp;
             Index = index;
             Hash = hash;
             PrevHash = "";
+            CreateUuid = creater;
+            OwnerUuid = creater;
         }
 
         public GenericBlockEntry (GenericBlockChain<T> root) : this (root.Data) {
@@ -69,11 +80,13 @@ namespace ASF.Node.Block {
             other.TimeStamp,
             other.Index,
             other.PrevHash,
-            other.Hash) {
+            other.Hash,
+            other.CreateUuid) {
 
         }
         public virtual String update () {
-            Hash = calc_hash (String.Format ("{0}{1}{2}{3}", Data, TimeStamp, Index, PrevHash));
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}:{4}{5}", 
+                Data, TimeStamp, Index, PrevHash, CreateUuid, OwnerUuid));
             return Hash;
         }
 
@@ -97,12 +110,14 @@ namespace ASF.Node.Block {
             builder.Append ("{");
             builder.AppendFormat ("\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
             builder.AppendFormat ("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n", Hash, PrevHash);
+            builder.AppendFormat ("\n\t\"Creater\": \"{0}\",\n\t\"Owner\": \"{1}\",\n", CreateUuid, OwnerUuid);
             builder.Append ("},");
 
             return builder.ToString ();
         }
-        public bool IsValid (GenericBlockEntry<T> entry) {
-            String Hash = calc_hash (String.Format ("{0}{1}{2}{3}", entry.Data, entry.TimeStamp, entry.Index, entry.PrevHash));
+        public bool isValid (GenericBlockEntry<T> entry) {
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}:{4}{5}", 
+                entry.Data, entry.TimeStamp, entry.Index, entry.PrevHash, entry.CreateUuid, entry.OwnerUuid));
             return Hash == entry.Hash;
         }
 

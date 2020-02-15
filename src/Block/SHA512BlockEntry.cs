@@ -23,10 +23,12 @@ using System.IO;
 using System.Security.Cryptography;
 
 namespace ASF.Node.Block {
+    [Serializable]
     public class SHA512BlockEntry<T> : GenericBlockEntry<T> {
 
-        public SHA512BlockEntry (T data, String hash) : base (data, hash) { }
-        protected SHA512BlockEntry (T data, long timeStamp, ulong index, String prevHash, String hash) : base (data, timeStamp, index, prevHash, hash) { }
+        public SHA512BlockEntry (T data, String hash, Guid creater) : base (data, hash, creater) {  }
+        public SHA512BlockEntry (T data, long timeStamp, ulong index, String prevHash, String hash,
+                                    Guid creater) : base (data, timeStamp, index, prevHash, hash, creater) { }
 
         public SHA512BlockEntry (GenericBlockChain<T> root) : base (root) { }
 

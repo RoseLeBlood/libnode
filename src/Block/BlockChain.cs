@@ -21,9 +21,9 @@
 using System;
 
 namespace ASF.Node.Block {
-
+    [Serializable]
     public class BlockChain : GenericBlockChain<Object> {
-        public BlockChain (Object data, String hash) : base (data, hash) { }
+        public BlockChain (Object data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
 
         public BlockChain (SHA512BlockEntry<Object> data) : base (data) { }
     }

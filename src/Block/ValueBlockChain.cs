@@ -28,7 +28,7 @@ namespace ASF.Node.Block {
             public D Value {
                 get { return m_data.Data; }
             }
-            public ValueBlockChain (D data, String hash) : base (data, hash) { }
+            public ValueBlockChain (D data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
             public ValueBlockChain (SHA512BlockEntry<D> data) : base (data) { }
 
             #region IComparable implementation
@@ -134,67 +134,67 @@ namespace ASF.Node.Block {
 
     [Serializable]
     public class ByteBlockChain : ValueBlockChain<byte> {
-        public ByteBlockChain (byte value, string hash) : base (value, hash) { }
+        public ByteBlockChain (byte data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public ByteBlockChain (SHA512BlockEntry<byte> data) : base (data) { }
     }
 
     [Serializable]
     public class Int16BlockChain : ValueBlockChain<short> {
-        public Int16BlockChain (short value, string hash) : base (value, hash) { }
+        public Int16BlockChain (short data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public Int16BlockChain (SHA512BlockEntry<Int16> data) : base (data) { }
     }
 
     [Serializable]
     public class Int32BlockChain : ValueBlockChain<int> {
-        public Int32BlockChain (int value, string hash) : base (value, hash) { }
+        public Int32BlockChain (int data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public Int32BlockChain (SHA512BlockEntry<Int32> data) : base (data) { }
     }
 
     [Serializable]
     public class Int64BlockChain : ValueBlockChain<long> {
-        public Int64BlockChain (long value, string hash) : base (value, hash) { }
+        public Int64BlockChain (long data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public Int64BlockChain (SHA512BlockEntry<Int64> data) : base (data) { }
     }
 
     [Serializable]
     public class SByteBlockChain : ValueBlockChain<sbyte> {
-        public SByteBlockChain (sbyte value, string hash) : base (value, hash) { }
+        public SByteBlockChain (sbyte data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public SByteBlockChain (SHA512BlockEntry<sbyte> data) : base (data) { }
     }
 
     [Serializable]
     public class UInt16BlockChain : ValueBlockChain<ushort> {
-        public UInt16BlockChain (ushort value, string hash) : base (value, hash) { }
+        public UInt16BlockChain (ushort data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public UInt16BlockChain (SHA512BlockEntry<ushort> data) : base (data) { }
     }
 
     [Serializable]
     public class UInt32BlockChain : ValueBlockChain<uint> {
-        public UInt32BlockChain (uint value, string hash) : base (value, hash) { }
+        public UInt32BlockChain (uint data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public UInt32BlockChain (SHA512BlockEntry<uint> data) : base (data) { }
     }
 
     [Serializable]
     public class UInt64BlockChain : ValueBlockChain<ulong> {
-        public UInt64BlockChain (ulong value, string hash) : base (value, hash) { }
+        public UInt64BlockChain (ulong data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public UInt64BlockChain (SHA512BlockEntry<ulong> data) : base (data) { }
     }
 
     [Serializable]
     public class DecimalBlockChain : ValueBlockChain<decimal> {
-        public DecimalBlockChain (decimal value, string hash) : base (value, hash) { }
+        public DecimalBlockChain (decimal data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public DecimalBlockChain (SHA512BlockEntry<decimal> data) : base (data) { }
     }
 
     [Serializable]
     public class DoubleBlockChain : ValueBlockChain<double> {
-        public DoubleBlockChain (double value, string hash) : base (value, hash) { }
+        public DoubleBlockChain (double data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public DoubleBlockChain (SHA512BlockEntry<double> data) : base (data) { }
     }
 
     [Serializable]
     public class SingleBlockChain : ValueBlockChain<float> {
-        public SingleBlockChain (float value, string hash) : base (value, hash) { }
+        public SingleBlockChain (float data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public SingleBlockChain (SHA512BlockEntry<float> data) : base (data) { }
     }
 }

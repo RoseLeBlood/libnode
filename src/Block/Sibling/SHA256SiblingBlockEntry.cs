@@ -26,9 +26,13 @@ using System.Security.Cryptography;
 using ASF.Node.List;
 
 namespace ASF.Node.Block {
+    [Serializable]
     public class SHA256SiblingBlockEntry<T> : GenericBlockSiblingEntry<T> {
-        public SHA256SiblingBlockEntry (T data, String hash) : base (data, hash) { }
-        protected SHA256SiblingBlockEntry (T data, long timeStamp, ulong index, String prevHash, String hash) : base (data, timeStamp, index, prevHash, hash) { }
+        public SHA256SiblingBlockEntry (T data, String hash, Guid creater) : base (data, hash, creater) { }
+        public SHA256SiblingBlockEntry (T data, long timeStamp, ulong index, 
+            String prevHash, String hash, Guid creater) 
+            : base (data, timeStamp, index, prevHash, hash, creater) { }
+
         protected override String calc_hash (string s) {
             return ASF.Node.Block.BlockUtils.GenSHA256 (s);
         }

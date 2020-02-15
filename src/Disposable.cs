@@ -21,6 +21,7 @@
 using System;
 
 namespace ASF.Node {
+    [Serializable]
     public class Disposable : IDisposable {
         ~Disposable () {
             Dispose (false);

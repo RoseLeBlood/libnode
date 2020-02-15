@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 
 namespace ASF.Node {
+    [Serializable]
     public enum TraversOrder {
         Preorder,
         Inorder,

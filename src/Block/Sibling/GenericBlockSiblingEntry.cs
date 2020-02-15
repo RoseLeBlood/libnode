@@ -26,6 +26,7 @@ using System.Text;
 using ASF.Node.List;
 
 namespace ASF.Node.Block {
+    [Serializable]
     public abstract class GenericBlockSiblingEntry<T> : GenericBlockEntry<T> {
         protected GenericBlockSiblingEntry<T> m_pSibling;
         protected bool m_bIsSibling;
@@ -43,11 +44,12 @@ namespace ASF.Node.Block {
             m_pSibling = null;
             m_bIsSibling = false;
         }
-        public GenericBlockSiblingEntry (T data) : base (data) { m_pSibling = null; m_bIsSibling = false; }
+        public GenericBlockSiblingEntry (T data, Guid creater) : base (data, creater) { m_pSibling = null; m_bIsSibling = false; }
 
-        public GenericBlockSiblingEntry (T data, String hash) : base (data, hash) { m_pSibling = null; m_bIsSibling = false; }
+        public GenericBlockSiblingEntry (T data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { m_pSibling = null; m_bIsSibling = false; }
 
-        protected GenericBlockSiblingEntry (T data, double timeStamp, ulong index, String prevHash, String hash) : base (data, timeStamp, index, prevHash, hash) { Sibling = null; m_bIsSibling = false; }
+        protected GenericBlockSiblingEntry (T data, double timeStamp, ulong index, String prevHash, String hash, Guid creater) 
+            : base (data, timeStamp, index, prevHash, hash, creater) { Sibling = null; m_bIsSibling = false; }
 
         public virtual GenericBlockSiblingEntry<T> addSiblingNode (GenericBlockSiblingEntry<T> node) {
             if (Sibling != null) {
@@ -70,6 +72,8 @@ namespace ASF.Node.Block {
             builder.AppendLine ("{");
             builder.AppendFormat ("\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
             builder.AppendFormat ("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n\t\"IsSibling\": \"{2}\",", Hash, PrevHash, m_bIsSibling);
+            builder.AppendFormat ("\n\t\"Creater\": \"{0}\",\n\t\"Owner\": \"{1}\",\n", CreateUuid, OwnerUuid);
+            
             if (m_bIsSibling) {
                 builder.AppendFormat ("\n\t\"Sibling\": {0}", Sibling.ToString ());
             }

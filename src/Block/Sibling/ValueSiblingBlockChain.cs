@@ -29,7 +29,7 @@ namespace ASF.Node.Block {
             public D Value {
                 get { return m_data.Data; }
             }
-            public ValueSiblingBlockChain (D data, String hash) : base (data, hash) { }
+            public ValueSiblingBlockChain (D data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
             public ValueSiblingBlockChain (SHA512SiblingBlockEntry<D> data) : base (data) { }
 
             #region IComparable implementation
@@ -128,67 +128,67 @@ namespace ASF.Node.Block {
 
     [Serializable]
     public class ByteSiblingBlockChain : ValueSiblingBlockChain<byte> {
-        public ByteSiblingBlockChain (byte value, string hash) : base (value, hash) { }
+        public ByteSiblingBlockChain (byte data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public ByteSiblingBlockChain (SHA512SiblingBlockEntry<byte> data) : base (data) { }
     }
 
     [Serializable]
     public class Int16SiblingBlockChain : ValueSiblingBlockChain<short> {
-        public Int16SiblingBlockChain (short value, string hash) : base (value, hash) { }
+        public Int16SiblingBlockChain (short data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public Int16SiblingBlockChain (SHA512SiblingBlockEntry<Int16> data) : base (data) { }
     }
 
     [Serializable]
     public class Int32SiblingBlockChain : ValueSiblingBlockChain<int> {
-        public Int32SiblingBlockChain (int value, string hash) : base (value, hash) { }
+        public Int32SiblingBlockChain (int data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public Int32SiblingBlockChain (SHA512SiblingBlockEntry<Int32> data) : base (data) { }
     }
 
     [Serializable]
     public class Int64SiblingBlockChain : ValueSiblingBlockChain<long> {
-        public Int64SiblingBlockChain (long value, string hash) : base (value, hash) { }
+        public Int64SiblingBlockChain (long data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public Int64SiblingBlockChain (SHA512SiblingBlockEntry<Int64> data) : base (data) { }
     }
 
     [Serializable]
     public class SByteSiblingBlockChain : ValueSiblingBlockChain<sbyte> {
-        public SByteSiblingBlockChain (sbyte value, string hash) : base (value, hash) { }
+        public SByteSiblingBlockChain (sbyte data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public SByteSiblingBlockChain (SHA512SiblingBlockEntry<sbyte> data) : base (data) { }
     }
 
     [Serializable]
     public class UInt16SiblingBlockChain : ValueSiblingBlockChain<ushort> {
-        public UInt16SiblingBlockChain (ushort value, string hash) : base (value, hash) { }
+        public UInt16SiblingBlockChain (ushort data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public UInt16SiblingBlockChain (SHA512SiblingBlockEntry<ushort> data) : base (data) { }
     }
 
     [Serializable]
     public class UInt32SiblingBlockChain : ValueSiblingBlockChain<uint> {
-        public UInt32SiblingBlockChain (uint value, string hash) : base (value, hash) { }
+        public UInt32SiblingBlockChain (uint data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public UInt32SiblingBlockChain (SHA512SiblingBlockEntry<uint> data) : base (data) { }
     }
 
     [Serializable]
     public class UInt64SiblingBlockChain : ValueSiblingBlockChain<ulong> {
-        public UInt64SiblingBlockChain (ulong value, string hash) : base (value, hash) { }
+        public UInt64SiblingBlockChain (ulong data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public UInt64SiblingBlockChain (SHA512SiblingBlockEntry<ulong> data) : base (data) { }
     }
 
     [Serializable]
     public class DecimalSiblingBlockChain : ValueSiblingBlockChain<decimal> {
-        public DecimalSiblingBlockChain (decimal value, string hash) : base (value, hash) { }
+        public DecimalSiblingBlockChain (decimal data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public DecimalSiblingBlockChain (SHA512SiblingBlockEntry<decimal> data) : base (data) { }
     }
 
     [Serializable]
     public class DoubleSiblingBlockChain : ValueSiblingBlockChain<double> {
-        public DoubleSiblingBlockChain (double value, string hash) : base (value, hash) { }
+        public DoubleSiblingBlockChain (double data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public DoubleSiblingBlockChain (SHA512SiblingBlockEntry<double> data) : base (data) { }
     }
 
     [Serializable]
     public class SingleSiblingBlockChain : ValueSiblingBlockChain<float> {
-        public SingleSiblingBlockChain (float value, string hash) : base (value, hash) { }
+        public SingleSiblingBlockChain (float data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
         public SingleSiblingBlockChain (SHA512SiblingBlockEntry<float> data) : base (data) { }
     }
 }
