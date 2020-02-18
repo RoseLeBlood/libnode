@@ -109,6 +109,7 @@ namespace ASF.Node.Block {
             public override GenericBlockChain<T, ENTRY> setNode (GenericBlockChain<T, ENTRY> node) {
                 if (Next == null) {
                     node.Prev = this;
+                    node.Next = null;
                     node.Data.PrevHash = this.Data.Hash;
                     node.Data.Index = this.Data.Index + 1;
 
@@ -131,22 +132,44 @@ namespace ASF.Node.Block {
             }
 
             public override void Travers (TraversOrder order, GenericBlockChain<T, ENTRY> root) {
-                if (Root != null && order == TraversOrder.ListOrder) {
+                /*if (Root != null && order == TraversOrder.ListOrder) {
                     Console.Write (Root.Data + " ");
                     if(root.Next != null) Travers (order, Root.Next);
                 } else if (root != null && order == TraversOrder.ReservListOrder) {
                     Console.Write (Root.Data + " ");
                     if(root.Prev != null) Travers (order, root.Prev);
-                }
+                }*/
             }
-            public override void Travers (TraversOrder order, funcTravers travers, GenericBlockChain<T, ENTRY> root) {
-                if (root != null && order == TraversOrder.ListOrder) {
-                    travers (root);
-                    if(root.Next != null) Travers (order, travers, root.Next);
-                } else if (root != null && order == TraversOrder.ReservListOrder) {
-                    travers (root);
-                    if(root.Prev != null) Travers (order, travers, root.Prev);
+            public override void Travers (TraversOrder order, funcTravers travers, GenericBlockChain<T, ENTRY> chain) {
+                
+                if (order == TraversOrder.ListOrder) {
+                    for(GenericBlockChain<T, ENTRY> root = chain; root != null; root = root.Next) {
+                        travers (root);
+                    }
                 }
+                else if (order == TraversOrder.ReservListOrder) {
+                    for(GenericBlockChain<T, ENTRY> root = chain; root != null; root = root.Prev) {
+                        travers (root);
+                    }
+                }                 
+            }
+            public virtual bool Transfer(string Hash, Guid Owner, Guid NewUser) {
+                try {
+                    GenericBlockChain<T, ENTRY> node = getNode(Hash);
+                    ENTRY entry = node.Data; 
+                    var lst = entry.Owners.Last as GenericBlockOwnerList;
+                    var data = lst.Data;
+
+                    TimeSpan ts = new TimeSpan (DateTime.Now.ToUniversalTime ().Ticks - (new DateTime (1970, 1, 1)).Ticks); // das Delta ermitteln
+
+                    if(data.Owner != Owner) return false;
+                    lst.setNode(new GenericBlockOwnerListEntry(Hash, NewUser, ts.TotalSeconds, data.Hash) );
+                    
+                } catch(Exception) {
+                    return false;
+                }
+                
+                return true;
             }
 
             public virtual bool IsGreaterThan (GenericBlockChain<T, ENTRY> other) {
@@ -246,24 +269,16 @@ namespace ASF.Node.Block {
             public override String ToString () {
                 System.Text.StringBuilder st = new System.Text.StringBuilder ();
 
-                st.Append (Data.ToString ());
+                GenericBlockChain<T, ENTRY> chain = this;
 
-                if (Next != null) {
-                    st.Append (Next.ToString ());
-                }
+                do {
+                    st.Append (chain.Data.ToString ());
+                    if(chain.Next != null) st.Append(",\n");
+                    chain = chain.Next;
+                } while (chain != null);
 
                 return st.ToString ();
             }
-
-           /* public String toJson() {
-                var option = new JsonSerializerOptions {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                };
-                var modeljson = JsonSerializer.Serialize(this, options);
-
-                return "";
-            }*/
         }
     [Serializable]
     public class GenericBlockChain<T> : GenericBlockChain<T, SHA512BlockEntry<T>> {

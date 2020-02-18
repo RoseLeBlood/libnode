@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 
 namespace ASF.Node.List {
+    [Serializable]
     public class GenericListEntry<T> {
         public string Name { get; set; }
         public T Data { get; set; }
@@ -39,6 +40,7 @@ namespace ASF.Node.List {
     }
 
     public class ListNode<T> : Node<T, ListNode<T>>, IEnumerable<T>, IList<GenericListEntry<T>> {
+        //[NoSerializable]
         public override ListNode<T> Root {
             get {
                 if (Prev == null)
@@ -48,6 +50,14 @@ namespace ASF.Node.List {
             }
             protected set {
                 Prev = value;
+            }
+        }
+        public ListNode<T> Last {
+            get {
+                if (Next == null)
+                    return this;
+                else
+                    return Next.Last;
             }
         }
         public GenericListEntry<T> this [int index] {
@@ -238,7 +248,7 @@ namespace ASF.Node.List {
             throw new System.NotImplementedException ();
         }
 
-        public bool Remove (GenericListEntry<T> item) {
+        public virtual bool Remove (GenericListEntry<T> item) {
             if (getNode (item.Name) == null)
                 return false;
 

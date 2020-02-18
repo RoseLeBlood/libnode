@@ -69,15 +69,18 @@ namespace ASF.Node.Block {
         public override String ToString () {
             StringBuilder builder = new StringBuilder ();
 
-            builder.AppendLine ("{");
-            builder.AppendFormat ("\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
-            builder.AppendFormat ("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n\t\"IsSibling\": \"{2}\",", Hash, PrevHash, m_bIsSibling);
-            builder.AppendFormat ("\n\t\"Creater\": \"{0}\",\n\t\"Owner\": \"{1}\",\n", CreateUuid, OwnerUuid);
+            builder.Append ("{");
+            builder.AppendFormat ("\n\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
+            builder.AppendFormat ("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n", Hash, PrevHash);
+            builder.AppendFormat ("\n\t\"Creater\": \"{0}\",", CreateUuid);
             
+            builder.AppendFormat ("\n\t\"Transfers\": {0}", Owners.ToString());
+
             if (m_bIsSibling) {
                 builder.AppendFormat ("\n\t\"Sibling\": {0}", Sibling.ToString ());
             }
-            builder.AppendLine ("\n},");
+            builder.Append ("\n}");
+            
 
             return builder.ToString ();
         }

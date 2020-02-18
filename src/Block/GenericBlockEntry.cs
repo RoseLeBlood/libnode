@@ -21,6 +21,7 @@
 using System;
 using System.IO;
 using System.Text;
+using ASF.Node.List;
 
 namespace ASF.Node.Block {
     [Serializable]
@@ -33,7 +34,8 @@ namespace ASF.Node.Block {
         public String PrevHash { get; internal set; }
 
         public Guid CreateUuid { get; internal set; }
-        public Guid OwnerUuid { get;  set; }
+
+        public GenericBlockOwnerList Owners { get; set; }
 
         public bool IsValid { get { return isValid (this); } }
 
@@ -47,8 +49,9 @@ namespace ASF.Node.Block {
             PrevHash = "";
             Hash = "NO_HASH";
             CreateUuid = creater;
-            OwnerUuid = creater;
             update ();
+
+            Owners = new GenericBlockOwnerList(Hash, new GenericBlockOwnerListEntry(Hash, creater, TimeStamp));
         }
         public GenericBlockEntry (T data, String hash, Guid creater) {
 
@@ -58,7 +61,7 @@ namespace ASF.Node.Block {
             Hash = hash;
             PrevHash = "";
             CreateUuid = creater;
-            OwnerUuid = creater;
+            Owners = new GenericBlockOwnerList(Hash, new GenericBlockOwnerListEntry(Hash, creater, TimeStamp));
 
         }
         protected GenericBlockEntry (T data, double timeStamp, ulong index, String prevHash, String hash,
@@ -69,7 +72,7 @@ namespace ASF.Node.Block {
             Hash = hash;
             PrevHash = "";
             CreateUuid = creater;
-            OwnerUuid = creater;
+            Owners = new GenericBlockOwnerList(Hash, new GenericBlockOwnerListEntry(Hash, creater, TimeStamp));
         }
 
         public GenericBlockEntry (GenericBlockChain<T> root) : this (root.Data) {
@@ -85,8 +88,8 @@ namespace ASF.Node.Block {
 
         }
         public virtual String update () {
-            Hash = calc_hash (String.Format ("{0}{1}{2}{3}:{4}{5}", 
-                Data, TimeStamp, Index, PrevHash, CreateUuid, OwnerUuid));
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}:{4}", 
+                Data, TimeStamp, Index, PrevHash, CreateUuid));
             return Hash;
         }
 
@@ -110,14 +113,17 @@ namespace ASF.Node.Block {
             builder.Append ("{");
             builder.AppendFormat ("\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
             builder.AppendFormat ("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n", Hash, PrevHash);
-            builder.AppendFormat ("\n\t\"Creater\": \"{0}\",\n\t\"Owner\": \"{1}\",\n", CreateUuid, OwnerUuid);
-            builder.Append ("},");
+            builder.AppendFormat ("\n\t\"Creater\": \"{0}\",", CreateUuid);
+            
+            builder.AppendFormat ("\n\t\"Transfers\": {0}", Owners.ToString());
+
+            builder.AppendLine ("\n},");
 
             return builder.ToString ();
         }
         public bool isValid (GenericBlockEntry<T> entry) {
-            Hash = calc_hash (String.Format ("{0}{1}{2}{3}:{4}{5}", 
-                entry.Data, entry.TimeStamp, entry.Index, entry.PrevHash, entry.CreateUuid, entry.OwnerUuid));
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}:{4}", 
+                entry.Data, entry.TimeStamp, entry.Index, entry.PrevHash, entry.CreateUuid));
             return Hash == entry.Hash;
         }
 
