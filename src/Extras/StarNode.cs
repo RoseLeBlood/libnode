@@ -41,7 +41,7 @@ namespace ASF.Node.Extras {
             get { return Root == null; }
         }
 
-        public StarNode (string name, T data) : base (name, data, 1) {
+        public StarNode (string name) : base (name, 1) {
             m_objects = new ListNode<StarNode<T>> ("/");
         }
 
@@ -67,6 +67,11 @@ namespace ASF.Node.Extras {
             }
 
             return this;
+        }
+        public ListNode<StarNode<T>> setNode(string name, T data) {
+            StarNode<T> node = new StarNode<T>(name); node.Data = data;
+
+            return m_objects.setNode (new ListNode<StarNode<T>> (name, node));
         }
 
         public override StarNode<T> removeNode (StarNode<T> node, ref bool removed) {
