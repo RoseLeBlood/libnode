@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Diagnostics;
+using ASF.Node.List;
 
 namespace ASF.Node {
     internal static class helper {
@@ -38,6 +40,23 @@ namespace ASF.Node {
                     return true;
                 default:
                     return false;
+            }
+        }
+        public static ProcessNode getAllByName(this ProcessNode node, string name) {
+             ProcessNode ppNode = node.getNode(name) as ProcessNode;
+
+             if(ppNode != null) {
+                return ppNode;
+            }
+            else {
+                Process[] ppNodeList = Process.GetProcessesByName(name);
+
+                foreach (var item in ppNodeList) {
+                   if(ppNode == null) ppNode = new ProcessNode(name, item);
+                   else  ppNode.setNode(new ProcessNode(name, item));
+                }
+
+                return ppNode;
             }
         }
     }

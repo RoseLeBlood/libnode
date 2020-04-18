@@ -25,11 +25,18 @@ using ASF.Node.List;
 namespace ASF.Node {
     [Serializable]    
     public class ProcessNode : ListNode<Process> {
-        protected ProcessNode (string name, Process data) 
-            : base(name, data) { }
+
+        public ProcessNode Child {
+            get; protected set;
+        }
+
+        public ProcessNode (string name, Process data) 
+            : base(name, data) { Child = null; }
 
         public ProcessNode(string name)
-            : base(name) { Data = new Process(); }
+            : base(name) { Data = new Process(); Child = null; }
+        public ProcessNode(string name, ProcessStartInfo info)
+            : base(name) { Data = new Process(); Data.StartInfo = info; Child = null; }
         public bool start() {
             return Data.Start();
         }
@@ -43,24 +50,11 @@ namespace ASF.Node {
         public bool closeWindow() {
             return Data.CloseMainWindow();
         }
+        public void kill(bool child) {
+            if(Child != null && child) Child.kill(child);
+            Data.Kill();
+        }
 
-        public static ProcessNode getbyeName(ProcessNode main, string name) {
-            ProcessNode ppNode = main.getNode(name) as ProcessNode;
-
-            if(ppNode != null) {
-                return ppNode;
-            }
-            else {
-                Process[] ppNodeList = Process.GetProcessesByName(name);
-
-                foreach (var item in ppNodeList) {
-                   if(ppNode == null) ppNode = new ProcessNode(name, item);
-                   else  ppNode.setNode(new ProcessNode(name, item));
-                }
-
-                return ppNode;
-            }
-        } 
         public override void OnSetNode (Node<Process, ListNode<Process>> node) { }
         public override void OnRemoveNode (Node<Process, ListNode<Process>> node) { }
     }
