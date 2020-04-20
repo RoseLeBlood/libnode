@@ -30,10 +30,10 @@ namespace ASF.Node.Binary {
         public StreamBinaryTreeNode (string name, Stream data = null) : base (name, data) { }
 
         public override bool IsGreaterThan (BinaryTreeNode b) {
-            if (helper.IsNumber (b.Data)) {
-                return Convert.ToInt64 (b.Data) < ((Stream) (this.Data)).Length;
-            } else if (b.Data is Stream) {
-                return ((Stream) b.Data).Length < ((Stream) (this.Data)).Length;
+            if (helper.IsNumber (b.Entry)) {
+                return Convert.ToInt64 (b.Entry) < ((Stream) (this.Entry)).Length;
+            } else if (b.Entry is Stream) {
+                return ((Stream) b.Entry).Length < ((Stream) (this.Entry)).Length;
             }
 
             return false;

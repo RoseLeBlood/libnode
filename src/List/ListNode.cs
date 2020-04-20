@@ -25,16 +25,16 @@ namespace ASF.Node.List {
     [Serializable]
     public class GenericListEntry<T> {
         public string Name { get; set; }
-        public T Data { get; set; }
+        public T RawEntry { get; set; }
 
-        public GenericListEntry (ListNode<T> root) : this (root.Name, root.Data) { }
+        public GenericListEntry (ListNode<T> root) : this (root.Name, root.Entry) { }
         public GenericListEntry (string name, T data) {
             Name = name;
-            Data = data;
+            RawEntry = data;
         }
 
         public static implicit operator GenericListEntry<T> (ListNode<T> node) {
-            return new GenericListEntry<T> (node.Name, node.Data);
+            return new GenericListEntry<T> (node.Name, node.Entry);
         }
 
     }
@@ -75,11 +75,11 @@ namespace ASF.Node.List {
             set {
                 ListNode<T> root = Root;
                 if (root.Index == index)
-                    root.Data = value.Data;
+                    root.Entry = value.RawEntry;
 
                 do {
                     if (root.Index == index)
-                        root.Data = value.Data;
+                        root.Entry = value.RawEntry;
 
                     root = root.Next;
                 } while (root != null);
@@ -147,7 +147,7 @@ namespace ASF.Node.List {
             return null;
         }
         public override void OnSetNode (Node<T, ListNode<T>> node) {
-            Console.WriteLine ("[{0}] Set Node Next: {1}", Data, Next.Data);
+            Console.WriteLine ("[{0}] Set Node Next: {1}", Entry, Next.Entry);
         }
         public override ListNode<T> setNode (ListNode<T> node) {
             if (Next == null) {
@@ -187,7 +187,7 @@ namespace ASF.Node.List {
 
         public override void Travers (TraversOrder order, ListNode<T> Root) {
             if (Root != null && order == TraversOrder.ListOrder) {
-                Console.Write (Root.Data + " ");
+                Console.Write (Root.Entry + " ");
                 Travers (order, Root.Next);
             }
         }
@@ -207,7 +207,7 @@ namespace ASF.Node.List {
             List<T> list = new List<T> ();
 
             do {
-                list.Add (root.Data);
+                list.Add (root.Entry);
 
                 root = root.Next;
             } while (root != null);
@@ -224,7 +224,7 @@ namespace ASF.Node.List {
             ListNode<T> root = Root;
 
             do {
-                yield return root.Data;
+                yield return root.Entry;
 
                 root = root.Next;
             } while (root != null);
@@ -233,7 +233,7 @@ namespace ASF.Node.List {
 
         #region ICollection implementation
         public void Add (GenericListEntry<T> item) {
-            setNode (new ListNode<T> (item.Name, item.Data));
+            setNode (new ListNode<T> (item.Name, item.RawEntry));
         }
 
         public void Clear () {
@@ -278,7 +278,7 @@ namespace ASF.Node.List {
             ListNode<T> root = Root;
 
             do {
-                yield return new GenericListEntry<T> (root.Name, root.Data);
+                yield return new GenericListEntry<T> (root.Name, root.Entry);
 
                 root = root.Next;
             } while (root != null);

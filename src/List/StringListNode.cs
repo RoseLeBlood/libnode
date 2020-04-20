@@ -28,7 +28,7 @@ namespace ASF.Node.List {
         public StringListNode (string name, String data = null) : base (name, data) { }
 
         public override string ToString () {
-            StringBuilder st = new StringBuilder (string.Format ("[{0}:{1}] ", Name, Data));
+            StringBuilder st = new StringBuilder (string.Format ("[{0}:{1}] ", Name, Entry));
             if (m_nodes[1] != null)
                 st.Append (string.Format ("Next: {0} ", m_nodes[1]));
             if (m_nodes[0] != null)
@@ -39,13 +39,13 @@ namespace ASF.Node.List {
 
         #region IComparable implementation
         public virtual int CompareTo (object obj) {
-            return ((IComparable) Data).CompareTo (obj);
+            return ((IComparable) Entry).CompareTo (obj);
         }
         #endregion
 
         #region IFormattable implementation
         public virtual string ToString (string format, IFormatProvider formatProvider) {
-            return ((IFormattable) Data).ToString (format, formatProvider);
+            return ((IFormattable) Entry).ToString (format, formatProvider);
         }
         #endregion 
     }

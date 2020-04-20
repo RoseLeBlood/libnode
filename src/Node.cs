@@ -46,7 +46,7 @@ namespace ASF.Node {
             get { return m_name; }
             set { m_name = value; }
         }
-        public T Data {
+        public T Entry {
             get { return m_data; }
             set { m_data = value; }
         }
@@ -73,7 +73,7 @@ namespace ASF.Node {
         public abstract List<T> ToList ();
 
         public override string ToString () {
-            return string.Format ("[Node: Name={0}, Data={1}, Root={2}]", Name, Data, Root);
+            return string.Format ("[Node: Name={0}, Data={1}, Root={2}]", Name, Entry, Root);
         }
         protected override void Dispose (bool disposing) {
             base.Dispose (disposing);

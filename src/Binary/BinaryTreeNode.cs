@@ -26,16 +26,16 @@ using ASF.Node.List;
 namespace ASF.Node.Binary {
     public class GenericTreeNodeEntry<T> {
         public string Name { get; set; }
-        public T Data { get; set; }
+        public T RawEntry { get; set; }
 
-        public GenericTreeNodeEntry (ListNode<T> root) : this (root.Name, root.Data) { }
+        public GenericTreeNodeEntry (ListNode<T> root) : this (root.Name, root.Entry) { }
         public GenericTreeNodeEntry (string name, T data) {
             Name = name;
-            Data = data;
+            RawEntry = data;
         }
 
         public static implicit operator GenericTreeNodeEntry<T> (BinaryTreeNode<T> node) {
-            return new GenericTreeNodeEntry<T> (node.Name, node.Data);
+            return new GenericTreeNodeEntry<T> (node.Name, node.Entry);
         }
 
     }
@@ -221,7 +221,7 @@ namespace ASF.Node.Binary {
                 case TraversOrder.Inorder:
                     if (Root != null) {
                         Travers (order, Root.m_nodes[1]);
-                        Console.Write (Root.Data + " ");
+                        Console.Write (Root.Entry + " ");
                         Travers (order, Root.m_nodes[2]);
                     }
                     break;
@@ -229,12 +229,12 @@ namespace ASF.Node.Binary {
                     if (Root != null) {
                         Travers (order, Root.m_nodes[1]);
                         Travers (order, Root.m_nodes[2]);
-                        Console.Write (Root.Data + " ");
+                        Console.Write (Root.Entry + " ");
                     }
                     break;
                 case TraversOrder.Preorder:
                     if (Root != null) {
-                        Console.Write (Root.Data + " ");
+                        Console.Write (Root.Entry + " ");
                         Travers (order, Root.m_nodes[1]);
                         Travers (order, Root.m_nodes[2]);
                     }
@@ -245,8 +245,8 @@ namespace ASF.Node.Binary {
             if (m_nodes[1] == null)
                 return false;
 
-            Object _a = ((Object) m_nodes[1].Data);
-            Object _b = ((Object) b.Data);
+            Object _a = ((Object) m_nodes[1].Entry);
+            Object _b = ((Object) b.Entry);
 
             if (_a.IsNumber () && _b.IsNumber ()) {
 
@@ -264,7 +264,7 @@ namespace ASF.Node.Binary {
 
         protected void addToList (BinaryTreeNode<T> root, ref List<T> liste) {
             if (root != null) {
-                liste.Add (root.Data);
+                liste.Add (root.Entry);
                 addToList (root.Left, ref liste);
                 addToList (root.Right, ref liste);
             }
@@ -281,7 +281,7 @@ namespace ASF.Node.Binary {
             BinaryTreeNode<T> _new = new BinaryTreeNode<T> ();
 
             do {
-                _new.setNode (new BinaryTreeNode<T> (node.Name, node.Data));
+                _new.setNode (new BinaryTreeNode<T> (node.Name, node.Entry));
                 _root = _root.Next;
             } while (_root != null);
 
@@ -303,7 +303,7 @@ namespace ASF.Node.Binary {
 
         private void _addToList (BinaryTreeNode<T> root, ref List<GenericTreeNodeEntry<T>> liste) {
             if (root != null) {
-                liste.Add (new GenericTreeNodeEntry<T> (root.Name, root.Data));
+                liste.Add (new GenericTreeNodeEntry<T> (root.Name, root.Entry));
                 _addToList (root.Left, ref liste);
                 _addToList (root.Right, ref liste);
             }
@@ -316,7 +316,7 @@ namespace ASF.Node.Binary {
 
         #region ICollection implementation
         public void Add (GenericTreeNodeEntry<T> item) {
-            setNode (new BinaryTreeNode<T> (item.Name, item.Data));
+            setNode (new BinaryTreeNode<T> (item.Name, item.RawEntry));
         }
 
         public void Clear () {

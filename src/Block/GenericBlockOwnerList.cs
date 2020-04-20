@@ -63,7 +63,7 @@ namespace ASF.Node.Block {
             
             builder.AppendLine("[");
             do {
-                builder.Append(root.Data.ToJson());
+                builder.Append(root.Entry.ToJson());
                 if(root.Next != null) builder.AppendLine(",");
                 root = root.Next;
             } while (root != null);

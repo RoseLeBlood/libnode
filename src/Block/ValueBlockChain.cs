@@ -26,7 +26,7 @@ namespace ASF.Node.Block {
     public class ValueBlockChain<D> : GenericBlockChain<D>, IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D>
         where D : IComparable, IConvertible, IFormattable, IComparable<D>, IEquatable<D> {
             public D Value {
-                get { return m_data.Data; }
+                get { return m_data.RawEntry; }
             }
             public ValueBlockChain (D data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }
             public ValueBlockChain (SHA512BlockEntry<D> data) : base (data) { }

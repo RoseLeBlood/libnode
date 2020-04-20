@@ -33,6 +33,10 @@ namespace ASF.Node.Block {
         IEnumerable<ENTRY>,
         IList<ENTRY>,
         ICollection<ENTRY> where ENTRY : GenericBlockEntry<T> {
+            
+            public bool isValid {
+                get { return Entry.isValid(); }
+            }
 
             public override GenericBlockChain<T, ENTRY> Root {
                 get { return (Prev == null) ? this : m_nodes[0].Root; }
@@ -44,7 +48,7 @@ namespace ASF.Node.Block {
 
                     do {
                         if ((int) root.Index == index)
-                            return root.Data;
+                            return root.Entry;
                         root = root.Next;
                     } while (root != null);
                     return null;
@@ -72,7 +76,7 @@ namespace ASF.Node.Block {
 
                     do {
                         if (root.Name == Name)
-                            return Data.Index;
+                            return Entry.Index;
 
                         root = root.Next;
                     } while (root != null);
@@ -96,7 +100,7 @@ namespace ASF.Node.Block {
             public GenericBlockChain (ENTRY data) : base (data.Hash, data, 2) { }
 
             public override GenericBlockChain<T, ENTRY> getNode (string hash) {
-                if (this.Data.Hash == hash)
+                if (this.Entry.Hash == hash)
                     return this;
 
                 if (Next != null)
@@ -110,10 +114,10 @@ namespace ASF.Node.Block {
                 if (Next == null) {
                     node.Prev = this;
                     node.Next = null;
-                    node.Data.PrevHash = this.Data.Hash;
-                    node.Data.Index = this.Data.Index + 1;
+                    node.Entry.PrevHash = this.Entry.Hash;
+                    node.Entry.Index = this.Entry.Index + 1;
 
-                    node.Name = node.Data.Hash;
+                    node.Name = node.Entry.Hash;
 
                     m_nodes[1] = node;
                     OnSetNode (node);
@@ -133,10 +137,10 @@ namespace ASF.Node.Block {
 
             public override void Travers (TraversOrder order, GenericBlockChain<T, ENTRY> root) {
                 /*if (Root != null && order == TraversOrder.ListOrder) {
-                    Console.Write (Root.Data + " ");
+                    Console.Write (Root.Entry + " ");
                     if(root.Next != null) Travers (order, Root.Next);
                 } else if (root != null && order == TraversOrder.ReservListOrder) {
-                    Console.Write (Root.Data + " ");
+                    Console.Write (Root.Entry + " ");
                     if(root.Prev != null) Travers (order, root.Prev);
                 }*/
             }
@@ -156,9 +160,9 @@ namespace ASF.Node.Block {
             public virtual bool Transfer(string Hash, Guid Owner, Guid NewUser) {
                 try {
                     GenericBlockChain<T, ENTRY> node = getNode(Hash);
-                    ENTRY entry = node.Data; 
+                    ENTRY entry = node.Entry; 
                     var lst = entry.Owners.Last as GenericBlockOwnerList;
-                    var data = lst.Data;
+                    var data = lst.Entry;
 
                     TimeSpan ts = new TimeSpan (DateTime.Now.ToUniversalTime ().Ticks - (new DateTime (1970, 1, 1)).Ticks); // das Delta ermitteln
 
@@ -176,8 +180,8 @@ namespace ASF.Node.Block {
                 if (m_nodes[1] == null)
                     return false;
 
-                ENTRY _a = m_nodes[1].Data;
-                ENTRY _b = other.Data;
+                ENTRY _a = m_nodes[1].Entry;
+                ENTRY _b = other.Entry;
 
                 return _a.IsGreaterThan (_b);
             }
@@ -194,7 +198,7 @@ namespace ASF.Node.Block {
                 List<ENTRY> list = new List<ENTRY> ();
 
                 do {
-                    list.Add (root.Data);
+                    list.Add (root.Entry);
                     root = root.Next;
                 } while (root != null);
 
@@ -210,7 +214,7 @@ namespace ASF.Node.Block {
                 GenericBlockChain<T, ENTRY> root = Root;
 
                 do {
-                    yield return root.Data;
+                    yield return root.Entry;
 
                     root = root.Next;
                 } while (root != null);
@@ -272,7 +276,7 @@ namespace ASF.Node.Block {
                 GenericBlockChain<T, ENTRY> chain = this;
 
                 do {
-                    st.Append (chain.Data.ToString ());
+                    st.Append (chain.Entry.ToString ());
                     if(chain.Next != null) st.Append(",\n");
                     chain = chain.Next;
                 } while (chain != null);

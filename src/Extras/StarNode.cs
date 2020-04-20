@@ -52,7 +52,7 @@ namespace ASF.Node.Extras {
             if (Root != null) {
                 return Root.getNode (name);
             }
-            return m_objects.getNode (name).Data;
+            return m_objects.getNode (name).Entry;
         }
 
         public override StarNode<T> setNode (StarNode<T> node) {
@@ -69,7 +69,7 @@ namespace ASF.Node.Extras {
             return this;
         }
         public ListNode<StarNode<T>> setNode(string name, T data) {
-            StarNode<T> node = new StarNode<T>(name); node.Data = data;
+            StarNode<T> node = new StarNode<T>(name); node.Entry = data;
 
             return m_objects.setNode (new ListNode<StarNode<T>> (name, node));
         }
@@ -105,11 +105,11 @@ namespace ASF.Node.Extras {
 
         public override System.Collections.Generic.List<T> ToList () {
             System.Collections.Generic.List<T> list = new System.Collections.Generic.List<T> ();
-            list.Add (this.Data);
+            list.Add (this.Entry);
 
             if (Root == null) {
                 foreach (var item in m_objects.ToList ()) {
-                    list.Add (item.Data);
+                    list.Add (item.Entry);
                 }
             }
             return list;

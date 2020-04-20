@@ -21,6 +21,7 @@
 using System;
 using System.Diagnostics;
 using ASF.Node.List;
+using ASF.Node.Block;
 
 namespace ASF.Node {
     internal static class helper {
@@ -42,7 +43,7 @@ namespace ASF.Node {
                     return false;
             }
         }
-        public static ProcessNode getAllByName(this ProcessNode node, string name) {
+        public static ProcessNode getAllByName(this ProcessNode node, string name, Guid ProgramGuid) {
              ProcessNode ppNode = node.getNode(name) as ProcessNode;
 
              if(ppNode != null) {
@@ -52,8 +53,10 @@ namespace ASF.Node {
                 Process[] ppNodeList = Process.GetProcessesByName(name);
 
                 foreach (var item in ppNodeList) {
-                   if(ppNode == null) ppNode = new ProcessNode(name, item);
-                   else  ppNode.setNode(new ProcessNode(name, item));
+                    if(ppNode == null) ppNode = new ProcessNode(item, name, ProgramGuid);
+                    else {
+                        ppNode.Add (new ProcessNodeEntry (item, ProgramGuid));
+                    }
                 }
 
                 return ppNode;

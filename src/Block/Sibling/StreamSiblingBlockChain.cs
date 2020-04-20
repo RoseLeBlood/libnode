@@ -46,7 +46,7 @@ namespace ASF.Node.Block {
         }
 
         public Stream Stream {
-            get { return ((Stream) Data.Data); }
+            get { return ((Stream) Entry.RawEntry); }
         }
 
         public StreamSiblingBlockChain (Stream data, String hash, Guid OwnerGuid) : base (data, hash, OwnerGuid) { }

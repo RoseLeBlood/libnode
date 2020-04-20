@@ -20,42 +20,68 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Diagnostics;
-using ASF.Node.List;
+using ASF.Node.Block;
 
 namespace ASF.Node {
-    [Serializable]    
-    public class ProcessNode : ListNode<Process> {
 
-        public ProcessNode Child {
-            get; protected set;
+    [Serializable] 
+    public class ProcessNodeEntry : SHA512BlockEntry<Process> {
+
+        public ProcessNode ChildProcess { get; set; }
+
+        public ProcessNodeEntry (Process data, Guid creater)  : base (data, creater) {  }
+        public ProcessNodeEntry (Process data, String hash, Guid creater)  : base (data, hash, creater) {  }
+    
+        public override String update () {
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}", RawEntry, TimeStamp, Index, PrevHash));
+            return Hash;
+        }
+    }
+
+    [Serializable]    
+    public class ProcessNode : GenericBlockChain<Process, ProcessNodeEntry> {
+
+        public ProcessNode Child  {
+            get { return Entry.ChildProcess; } 
+            protected set { Entry.ChildProcess = value; }
         }
 
-        public ProcessNode (string name, Process data) 
-            : base(name, data) { Child = null; }
+        public ProcessNode (Process process, String hash, Guid OwnerGuid) 
+            : this (new ProcessNodeEntry (process, hash, OwnerGuid)) { Child = null; }
 
-        public ProcessNode(string name)
-            : base(name) { Data = new Process(); Child = null; }
-        public ProcessNode(string name, ProcessStartInfo info)
-            : base(name) { Data = new Process(); Data.StartInfo = info; Child = null; }
+        public ProcessNode(string hash, ProcessStartInfo info, Guid OwnerGuid)
+            : this(new Process(), hash, OwnerGuid) { 
+                Entry.RawEntry.StartInfo = info; Child = null;
+        }
+        public ProcessNode (ProcessNodeEntry data) 
+            : base (data) { }
+
         public bool start() {
-            return Data.Start();
+            return Entry.RawEntry.Start();
         }
         public bool start(ProcessStartInfo info) {
-            Data.StartInfo = info;
+            Entry.RawEntry.StartInfo = info;
             return start();
         }
         public void close() {
-            Data.Close();
+            Entry.RawEntry.Close();
         }
         public bool closeWindow() {
-            return Data.CloseMainWindow();
+            return Entry.RawEntry.CloseMainWindow();
         }
         public void kill(bool child) {
             if(Child != null && child) Child.kill(child);
-            Data.Kill();
+            Entry.RawEntry.Kill();
         }
-
-        public override void OnSetNode (Node<Process, ListNode<Process>> node) { }
-        public override void OnRemoveNode (Node<Process, ListNode<Process>> node) { }
+        
+        public ProcessNode addChild(ProcessNode node, bool start = true) {
+            if(Child == null) {
+                Child = node;
+                if(start) Child.start();
+                return Child; 
+            } else {
+                return Child.addChild(node, start);
+            }
+        }
     }
 }

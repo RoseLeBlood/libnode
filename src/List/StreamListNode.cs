@@ -25,7 +25,7 @@ namespace ASF.Node.List {
     [Serializable]
     public class StreamListNode : ListNode {
         public Stream Stream {
-            get { return ((Stream) Data); }
+            get { return ((Stream) Entry); }
         }
         public StreamListNode (string name, Stream data = null) : base (name, data) { }
 

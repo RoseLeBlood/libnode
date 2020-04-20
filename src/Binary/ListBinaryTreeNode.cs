@@ -29,11 +29,11 @@ namespace ASF.Node.Binary {
             if (m_name == name)
                 return this;
 
-            ListNode<T> list = Data as ListNode<T>;
+            ListNode<T> list = Entry as ListNode<T>;
             list = list.Root.getNode (name);
 
             if (list != null)
-                return new BinaryTreeNode<object> (list.Name, list.Data);
+                return new BinaryTreeNode<object> (list.Name, list.Entry);
 
             if (m_nodes[1] != null)
                 return m_nodes[1].getNode (name);
@@ -43,13 +43,13 @@ namespace ASF.Node.Binary {
             return null;
         }
         public override BinaryTreeNode<object> removeNode (string name, ref bool removed) {
-            ListNode<T> list = Data as ListNode<T>;
+            ListNode<T> list = Entry as ListNode<T>;
             list.removeNode (name, ref removed);
 
             return removed ? this : base.removeNode (name, ref removed);
         }
         public override BinaryTreeNode<object> removeNode (BinaryTreeNode<object> node, ref bool removed) {
-            ListNode<T> list = Data as ListNode<T>;
+            ListNode<T> list = Entry as ListNode<T>;
             list.removeNode (node.Name, ref removed);
 
             return removed ? this : base.removeNode (node, ref removed);
@@ -58,7 +58,7 @@ namespace ASF.Node.Binary {
             return addToList (new ListNode<T> (name, data));
         }
         public virtual ListBinaryTreeNode<T> addToList (ListNode<T> data) {
-            ListNode<T> list = Data as ListNode<T>;
+            ListNode<T> list = Entry as ListNode<T>;
             list.setNode (data);
             return this;
         }

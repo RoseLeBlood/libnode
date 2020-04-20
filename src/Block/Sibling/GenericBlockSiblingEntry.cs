@@ -63,14 +63,14 @@ namespace ASF.Node.Block {
         }
 
         public override String update () {
-            Hash = calc_hash (String.Format ("{0}{1}{2}{3}{4}", Data, TimeStamp, Index, PrevHash, m_pSibling));
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}{4}", RawEntry, TimeStamp, Index, PrevHash, m_pSibling));
             return Hash;
         }
         public override String ToString () {
             StringBuilder builder = new StringBuilder ();
 
             builder.Append ("{");
-            builder.AppendFormat ("\n\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", Data, TimeStamp, Index);
+            builder.AppendFormat ("\n\t\"Data\": \"{0}\",\n\t\"TimeStamp\": \"{1}\",\n\t\"Index\": \"{2}\",", RawEntry, TimeStamp, Index);
             builder.AppendFormat ("\n\t\"Hash\": \"{0}\",\n\t\"PrevHash\": \"{1}\",\n", Hash, PrevHash);
             builder.AppendFormat ("\n\t\"Creater\": \"{0}\",", CreateUuid);
             

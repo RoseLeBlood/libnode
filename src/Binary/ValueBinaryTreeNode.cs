@@ -39,13 +39,13 @@ namespace ASF.Node.Binary {
                     m_nodes[1] = node;
 
                     OnSetNode (node);
-                    Console.WriteLine ("[{0}:{2}] Set Node Left: {1}:{3} Parent: {4}", Name, m_nodes[1].Name, Data, m_nodes[1].Data,
+                    Console.WriteLine ("[{0}:{2}] Set Node Left: {1}:{3} Parent: {4}", Name, m_nodes[1].Name, Entry, m_nodes[1].Entry,
                         Parent != null ? Parent.Name : "Root");
                     return this;
                 } else if (m_nodes[2] == null) {
                     node.Parent = this;
                     m_nodes[2] = node;
-                    Console.WriteLine ("[{0}:{2}] Set Node Right: {1}:{3} Parent: {4}", Name, m_nodes[2].Name, Data, m_nodes[2].Data,
+                    Console.WriteLine ("[{0}:{2}] Set Node Right: {1}:{3} Parent: {4}", Name, m_nodes[2].Name, Entry, m_nodes[2].Entry,
                         Parent != null ? Parent.Name : "Root");
                     OnSetNode (node);
                     return this;
@@ -61,7 +61,7 @@ namespace ASF.Node.Binary {
             }
 
             public override string ToString () {
-                StringBuilder st = new StringBuilder (string.Format ("[{0}:{1}] ", Name, Data));
+                StringBuilder st = new StringBuilder (string.Format ("[{0}:{1}] ", Name, Entry));
                 if (m_nodes[1] != null)
                     st.Append (string.Format ("Left: {0} ", m_nodes[1]));
                 if (m_nodes[2] != null)
@@ -71,94 +71,94 @@ namespace ASF.Node.Binary {
             }
             #region IComparable implementation
             public virtual int CompareTo (object obj) {
-                return ((IComparable) Data).CompareTo (obj);
+                return ((IComparable) Entry).CompareTo (obj);
             }
             #endregion       
 
             #region IConvertible implementation
             public virtual TypeCode GetTypeCode () {
-                return ((IConvertible) Data).GetTypeCode ();
+                return ((IConvertible) Entry).GetTypeCode ();
             }
 
             public virtual bool ToBoolean (IFormatProvider provider) {
-                return ((IConvertible) Data).ToBoolean (provider);
+                return ((IConvertible) Entry).ToBoolean (provider);
             }
 
             public virtual byte ToByte (IFormatProvider provider) {
-                return ((IConvertible) Data).ToByte (provider);
+                return ((IConvertible) Entry).ToByte (provider);
             }
 
             public virtual char ToChar (IFormatProvider provider) {
-                return ((IConvertible) Data).ToChar (provider);
+                return ((IConvertible) Entry).ToChar (provider);
             }
 
             public virtual DateTime ToDateTime (IFormatProvider provider) {
-                return ((IConvertible) Data).ToDateTime (provider);
+                return ((IConvertible) Entry).ToDateTime (provider);
             }
 
             public virtual decimal ToDecimal (IFormatProvider provider) {
-                return ((IConvertible) Data).ToDecimal (provider);
+                return ((IConvertible) Entry).ToDecimal (provider);
             }
 
             public virtual double ToDouble (IFormatProvider provider) {
-                return ((IConvertible) Data).ToDouble (provider);
+                return ((IConvertible) Entry).ToDouble (provider);
             }
 
             public virtual short ToInt16 (IFormatProvider provider) {
-                return ((IConvertible) Data).ToInt16 (provider);
+                return ((IConvertible) Entry).ToInt16 (provider);
             }
 
             public virtual int ToInt32 (IFormatProvider provider) {
-                return ((IConvertible) Data).ToInt32 (provider);
+                return ((IConvertible) Entry).ToInt32 (provider);
             }
 
             public virtual long ToInt64 (IFormatProvider provider) {
-                return ((IConvertible) Data).ToInt64 (provider);
+                return ((IConvertible) Entry).ToInt64 (provider);
             }
 
             public virtual sbyte ToSByte (IFormatProvider provider) {
-                return ((IConvertible) Data).ToSByte (provider);
+                return ((IConvertible) Entry).ToSByte (provider);
             }
 
             public virtual float ToSingle (IFormatProvider provider) {
-                return ((IConvertible) Data).ToSingle (provider);
+                return ((IConvertible) Entry).ToSingle (provider);
             }
 
             public virtual string ToString (IFormatProvider provider) {
-                return ((IConvertible) Data).ToString (provider);
+                return ((IConvertible) Entry).ToString (provider);
             }
 
             public virtual object ToType (Type conversionType, IFormatProvider provider) {
-                return ((IConvertible) Data).ToType (conversionType, provider);
+                return ((IConvertible) Entry).ToType (conversionType, provider);
             }
 
             public virtual ushort ToUInt16 (IFormatProvider provider) {
-                return ((IConvertible) Data).ToUInt16 (provider);
+                return ((IConvertible) Entry).ToUInt16 (provider);
             }
 
             public virtual uint ToUInt32 (IFormatProvider provider) {
-                return ((IConvertible) Data).ToUInt32 (provider);
+                return ((IConvertible) Entry).ToUInt32 (provider);
             }
 
             public virtual ulong ToUInt64 (IFormatProvider provider) {
-                return ((IConvertible) Data).ToUInt64 (provider);
+                return ((IConvertible) Entry).ToUInt64 (provider);
             }
             #endregion        
 
             #region IFormattable implementation
             public virtual string ToString (string format, IFormatProvider formatProvider) {
-                return ((IFormattable) Data).ToString (format, formatProvider);
+                return ((IFormattable) Entry).ToString (format, formatProvider);
             }
             #endregion  
 
             #region IComparable implementation
             public virtual int CompareTo (D other) {
-                return ((IComparable<D>) Data).CompareTo (other);
+                return ((IComparable<D>) Entry).CompareTo (other);
             }
             #endregion        
             #region IEquatable implementation
             public virtual bool Equals (D other) {
-                return ((IEquatable<D>) Data).Equals (other);
+                return ((IEquatable<D>) Entry).Equals (other);
             }
             #endregion
         }
