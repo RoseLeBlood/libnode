@@ -1,8 +1,7 @@
 # libnode 
 Namespace: ASF.Node
 
-A generic node system for C# under LGPL for dotnet core. With BinaryTree, a list with next and prev and
-generic classes to build your own classic blockchain or a blockchain with sibling. 
+A generic node system for C# under LGPL for dotnet core. 
 
 ## Example BlockChain
 ```C#
