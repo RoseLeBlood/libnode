@@ -1,10 +1,10 @@
 //
-//  ProzessNode.cs
+//  ProcessNode.cs
 //
 //  Author:
-//       sophia <annasophia.schroeck@outlook.de>
+//       Amber-Sophia Schroeck <ambersophia.schroeck@outlook.de>
 //
-//  Copyright (c) 2014 sophia
+//  Copyright (c) 2020 Amber-Sophia Schroeck
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
