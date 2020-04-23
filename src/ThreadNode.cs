@@ -23,50 +23,64 @@ using System.Threading;
 using ASF.Node.Block;
 
 namespace ASF.Node {
-    public class ThreadNodeEntry : SHA512BlockEntry<ThreadNode> {
-        public ThreadNodeEntry (ThreadNode data, Guid creater)  : base (data, creater) {  }
-        public ThreadNodeEntry (ThreadNode data, String hash, Guid creater)  : base (data, hash, creater) {  }
-    
+    public class ThreadNodeEntry : SHA512BlockEntry<Thread> {
+        private Object m_pThreadObject;
+
+        public Object Parameter {
+            get { return m_pThreadObject; }
+        }
+        
+
+        public ThreadNodeEntry (Thread data, Guid creater, Object Arg = null)  
+            : base (data, creater) {  m_pThreadObject = Arg; }
+        public ThreadNodeEntry (Thread data, String hash, Guid creater, Object Arg = null)  
+            : base (data, hash, creater) { m_pThreadObject = Arg;  }
+
         public override String update () {
-            Hash = calc_hash (String.Format ("{0}{1}{2}{3}", RawEntry, TimeStamp, Index, PrevHash));
+            Hash = calc_hash (String.Format ("{0}{1}{2}{3}:{4}", RawEntry, TimeStamp, Index, PrevHash, m_pThreadObject));
             return Hash;
         }
     }
-    public class ThreadNode : GenericBlockChain<ThreadNode, ThreadNodeEntry> { 
-        protected Thread m_pThread;
-
+     public class ThreadNode : GenericBlockChain<Thread, ThreadNodeEntry> { 
+    
+        public int ThreadReturn { 
+            get; set; 
+        }
         public bool isAlive {
-            get { return m_pThread.IsAlive; }
+            get { return Entry.RawEntry.IsAlive; }
+        }
+        public static ThreadNode Current {
+            get { return new ThreadNode(Thread.CurrentThread); }
         }
 
-        public ThreadNode (String hash, Guid OwnerGuid, int maxStatckSize = Int16.MaxValue) 
-            : this (new ThreadNodeEntry (null, hash, OwnerGuid)) { 
-                createThread(maxStatckSize); 
-                Entry.RawEntry = this;
-                Entry.update();
-            }
+        public ThreadNode (String hash, Guid OwnerGuid, Object paramter, int maxStatckSize = Int16.MaxValue) 
+            : this (new ThreadNodeEntry (new Thread(new ParameterizedThreadStart(static_OnThread), maxStatckSize), 
+                                         hash, 
+                                         OwnerGuid,
+                                         paramter)) {  }
+        public ThreadNode(Thread thr)
+            : this (new ThreadNodeEntry (thr, Guid.NewGuid() ))  { }
 
+        protected ThreadNode (ThreadNodeEntry data) 
+            : base (data) { }
 
-        public ThreadNode (ThreadNodeEntry data, int maxStatckSize = Int16.MaxValue) 
-            : base (data) { createThread(maxStatckSize); }
-
-        public virtual void start(Object obj) {
-            m_pThread.Start(obj);
+        public virtual void start() {
+            Entry.RawEntry.Start(this);
         }
         
         public virtual void stop() {
-            m_pThread.Abort();
+            Entry.RawEntry.Abort();
         }
 
         public static void sleep(int ms) {
             Thread.Sleep(ms);
         }
-
-        protected virtual void OnThread(Object obj) {
-
+        protected virtual int OnThread(Object obj) {
+            return 0;
         }
-        private void createThread(int stackSize) {
-            m_pThread = new Thread(new ParameterizedThreadStart(OnThread), stackSize);
+        private static void static_OnThread(Object obj) {
+            ThreadNode entry = (obj is ThreadNode) ? obj as ThreadNode : null;
+            entry.ThreadReturn = entry.OnThread(entry.Entry.Parameter);
         }
     }
 }
